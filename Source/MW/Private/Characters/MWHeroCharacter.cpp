@@ -12,6 +12,8 @@
 #include "Components/Input/MWInputComponent.h"
 #include "MWGameplayTags.h"
 
+#include "MWDebugHelper.h"
+
 AMWHeroCharacter::AMWHeroCharacter()
 {
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.f);
@@ -52,6 +54,8 @@ void AMWHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
+	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Jump, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
 }
 
 void AMWHeroCharacter::BeginPlay()
