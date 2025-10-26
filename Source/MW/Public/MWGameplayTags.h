@@ -6,8 +6,13 @@
 
 namespace MWGameplayTags
 {
+	/* Input Tags */
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Move);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Jump);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_LightAttack);
+
+	/* Player Tags */
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light);
 }
 

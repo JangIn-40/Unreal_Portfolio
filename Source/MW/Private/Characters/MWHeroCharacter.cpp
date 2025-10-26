@@ -11,6 +11,9 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/MWInputComponent.h"
 #include "MWGameplayTags.h"
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
+#include "Components/Combat/HeroCombatComponent.h"
+#include "AbilitySystem/MWAbilitySystemComponent.h"
 
 #include "MWDebugHelper.h"
 
@@ -36,6 +39,21 @@ AMWHeroCharacter::AMWHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
+}
+
+void AMWHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (!CharacterStartUpData.IsNull())
+	{
+		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(MWAbilitySystemComponent, 1);
+		}
+	}
 }
 
 void AMWHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -56,6 +74,8 @@ void AMWHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
 	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Jump, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
+
+	MWInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
 
 void AMWHeroCharacter::BeginPlay()
@@ -94,4 +114,14 @@ void AMWHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
 	{
 		AddControllerYawInput(LookAxisVector.X);
 	}
+}
+
+void AMWHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	MWAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AMWHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	MWAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

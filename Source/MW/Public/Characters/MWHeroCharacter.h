@@ -4,12 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "Characters/MWBaseCharacter.h"
+#include "GameplayTagContainer.h"
 #include "MWHeroCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
 class UDataAsset_InputConfig;
 struct FInputActionValue;
+class UHeroCombatComponent;
+
 /**
  * 
  */
@@ -22,6 +25,10 @@ public:
 	AMWHeroCharacter();
 
 protected:
+	//~ Begin APawn Interface.
+	virtual void PossessedBy(AController* NewController) override;
+	//~ End APawn Interface.
+
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 
@@ -33,6 +40,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+	UPROPERTY(VisibleAnywhere, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UHeroCombatComponent* HeroCombatComponent;
+
 #pragma endregion
 
 #pragma region Input
@@ -45,5 +56,12 @@ private:
 	void Input_Move(const FInputActionValue& ActionValue);
 	void Input_Look(const FInputActionValue& ActionValue);
 
+	void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputReleased(FGameplayTag InInputTag);
+
 #pragma endregion 
+
+public:
+	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }
+
 };
