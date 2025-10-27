@@ -33,6 +33,11 @@ protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
 	bool bIsInAir;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
+	FName DefaultSlotName;
+
+	bool bIsDefaultSectionPlaying;
+
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
 	bool bShouldEnterRelaxState;
 

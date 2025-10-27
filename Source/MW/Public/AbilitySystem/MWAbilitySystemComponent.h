@@ -17,4 +17,8 @@ class MW_API UMWAbilitySystemComponent : public UAbilitySystemComponent
 public:
 	void OnAbilityInputPressed(const FGameplayTag& InInputTag);
 	void OnAbilityInputReleased(const FGameplayTag& InInputTag);
+
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Combat")
+	bool bShouldProceedToNextCombo = false;
 };

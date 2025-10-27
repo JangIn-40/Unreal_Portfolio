@@ -38,7 +38,9 @@ void UMWHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 
 	bIsInAir = OwningMovementComponent->IsFalling();
 
-	if (bHasAcceleration || bIsInAir)
+	bIsDefaultSectionPlaying = DefaultSlotName == Montage_GetCurrentSection();
+
+	if (bHasAcceleration || bIsInAir || !bIsDefaultSectionPlaying)
 	{
 		IdleElapsedTime = 0.f;
 		bShouldEnterRelaxState = false;

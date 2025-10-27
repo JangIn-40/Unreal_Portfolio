@@ -2,6 +2,10 @@
 
 
 #include "AbilitySystem/MWAbilitySystemComponent.h"
+#include "MWGameplayTags.h"
+#include "MWBlueprintFunctionLibrary.h"
+
+#include "MWDebugHelper.h"
 
 void UMWAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
 {
@@ -12,7 +16,12 @@ void UMWAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInpu
 
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag)) continue;
+		if (!AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag)) continue;
+
+		if (UMWBlueprintFunctionLibrary::NativeDoesActorHaveTag(GetOwner(), MWGameplayTags::Player_Status_IsAttacking) && AbilitySpec.IsActive())
+		{
+			bShouldProceedToNextCombo = true;
+		}
 
 		TryActivateAbility(AbilitySpec.Handle);
 	}

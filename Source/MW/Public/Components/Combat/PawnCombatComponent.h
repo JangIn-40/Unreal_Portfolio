@@ -14,4 +14,6 @@ class MW_API UPawnCombatComponent : public UPawnExtensionComponentBase
 {
 	GENERATED_BODY()
 	
+public:
+
 };
