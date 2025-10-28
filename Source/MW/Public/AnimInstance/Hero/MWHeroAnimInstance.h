@@ -34,9 +34,12 @@ protected:
 	bool bIsInAir;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
-	FName DefaultSlotName;
+	FName NoneSlotName;
 
-	bool bIsDefaultSectionPlaying;
+	bool bIsPlayingAnyMontageSection;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
+	FName StopRelaxingCurveName;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
 	bool bShouldEnterRelaxState;
@@ -45,4 +48,10 @@ protected:
 	float EnterRelaxStateThreshold = 5.f;
 
 	float IdleElapsedTime;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
+	FName FullBodyCurveName;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData | LocmoitionData")
+	bool bIsFullBody;
 };

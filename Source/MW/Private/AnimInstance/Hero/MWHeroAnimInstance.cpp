@@ -6,6 +6,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+#include "MWDebugHelper.h"
 
 void UMWHeroAnimInstance::NativeInitializeAnimation()
 {
@@ -38,9 +39,11 @@ void UMWHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 
 	bIsInAir = OwningMovementComponent->IsFalling();
 
-	bIsDefaultSectionPlaying = DefaultSlotName == Montage_GetCurrentSection();
+	bIsPlayingAnyMontageSection = NoneSlotName == Montage_GetCurrentSection();
 
-	if (bHasAcceleration || bIsInAir || !bIsDefaultSectionPlaying)
+	bIsFullBody = GetCurveValue(FullBodyCurveName) > 0.f;
+
+	if (bHasAcceleration || bIsInAir || !bIsPlayingAnyMontageSection)
 	{
 		IdleElapsedTime = 0.f;
 		bShouldEnterRelaxState = false;
@@ -50,5 +53,14 @@ void UMWHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 		IdleElapsedTime += DeltaSeconds;
 
 		bShouldEnterRelaxState = IdleElapsedTime >= EnterRelaxStateThreshold;
+
+		bool bStopRelaxing = FMath::IsNearlyEqual(GetCurveValue(StopRelaxingCurveName), 1.0f);
+
+		if (bStopRelaxing)
+		{
+			IdleElapsedTime = 0.f;
+
+			bShouldEnterRelaxState = false;
+		}
 	}
 }
