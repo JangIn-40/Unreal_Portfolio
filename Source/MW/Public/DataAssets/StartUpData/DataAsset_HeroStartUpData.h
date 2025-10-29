@@ -22,6 +22,15 @@ struct FMWHeroAbilitySet
 	bool IsValid() const;
 };
 
+USTRUCT(BlueprintType)
+struct FMWHeroSpecialAbilitySets : public FMWHeroAbilitySet
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Player.Cooldown"))
+	FGameplayTag AbilityCooldownTag;
+};
+
 /**
  * 
  */
@@ -35,6 +44,9 @@ public:
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
-	TArray<FMWHeroAbilitySet> HeroStartUpAbilitySets;
+	TArray<FMWHeroAbilitySet> HeroDefaultAbilitySets;
+
+	UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
+	TArray<FMWHeroSpecialAbilitySets> HeroSpecialAbilitySets;
 	
 };

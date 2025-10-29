@@ -14,7 +14,19 @@ void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UMWAbilitySystemCo
 {
 	Super::GiveToAbilitySystemComponent(InASCToGive, ApplyLevel);
 
-	for (const FMWHeroAbilitySet& AbilitySet : HeroStartUpAbilitySets)
+	for (const FMWHeroAbilitySet& AbilitySet : HeroDefaultAbilitySets)
+	{
+		if (!AbilitySet.IsValid()) continue;
+
+		FGameplayAbilitySpec Spec(AbilitySet.AbilityToGrant);
+		Spec.SourceObject = InASCToGive->GetAvatarActor();
+		Spec.Level = ApplyLevel;
+		Spec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+
+		InASCToGive->GiveAbility(Spec);
+	}
+
+	for (const FMWHeroAbilitySet& AbilitySet : HeroSpecialAbilitySets)
 	{
 		if (!AbilitySet.IsValid()) continue;
 
