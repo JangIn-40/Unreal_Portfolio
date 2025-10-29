@@ -14,6 +14,7 @@ namespace MWGameplayTags
 
 	/* Player Tags */
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Recovery);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_SaveAttack);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_ResetAttack);

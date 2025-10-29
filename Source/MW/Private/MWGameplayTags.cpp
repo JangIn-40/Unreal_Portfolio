@@ -13,6 +13,7 @@ namespace MWGameplayTags
 
 	/* Player Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light, "Player.Ability.Attack.Light");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Recovery, "Player.Ability.Attack.Recovery");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_SaveAttack, "Player.Event.SaveAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ResetAttack, "Player.Event.ResetAttack");
