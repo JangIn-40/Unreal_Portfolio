@@ -35,6 +35,11 @@ UAbilitySystemComponent* AMWBaseCharacter::GetAbilitySystemComponent() const
 	return GetMWAbilitySystemComponent();
 }
 
+UPawnCombatComponent* AMWBaseCharacter::GetPawnCombatComponent() const
+{
+	return nullptr;
+}
+
 void AMWBaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

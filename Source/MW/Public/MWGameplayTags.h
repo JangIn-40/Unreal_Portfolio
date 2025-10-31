@@ -25,6 +25,8 @@ namespace MWGameplayTags
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_ForcePush);
 
+	/* Shared Tags */
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
 	
 }
 

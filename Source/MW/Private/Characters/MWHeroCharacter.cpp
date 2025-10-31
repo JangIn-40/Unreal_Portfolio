@@ -14,6 +14,7 @@
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "Components/Combat/HeroCombatComponent.h"
 #include "AbilitySystem/MWAbilitySystemComponent.h"
+#include "MWBlueprintFunctionLibrary.h"
 
 #include "MWDebugHelper.h"
 
@@ -27,7 +28,7 @@ AMWHeroCharacter::AMWHeroCharacter()
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
-	CameraBoom->TargetArmLength = 200.f;
+	CameraBoom->TargetArmLength = 400.f;
 	CameraBoom->SocketOffset = FVector(0.f, 55.f, 65.f);
 	CameraBoom->bUsePawnControlRotation = true;
 
@@ -37,8 +38,8 @@ AMWHeroCharacter::AMWHeroCharacter()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
-	GetCharacterMovement()->MaxWalkSpeed = 400.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	GetCharacterMovement()->MaxWalkSpeed = 470.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
 	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
@@ -51,7 +52,7 @@ void AMWHeroCharacter::PossessedBy(AController* NewController)
 	{
 		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
 		{
-			LoadedData->GiveToAbilitySystemComponent(MWAbilitySystemComponent, 1);
+			LoadedData->GiveToAbilitySystemComponent(MWAbilitySystemComponent);
 		}
 	}
 }
@@ -81,6 +82,22 @@ void AMWHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AMWHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+UPawnCombatComponent* AMWHeroCharacter::GetPawnCombatComponent() const
+{
+	return HeroCombatComponent;
+}
+
+void AMWHeroCharacter::OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	{
+		if (UMWBlueprintFunctionLibrary::IsTargetPawnHostile(this, HitPawn))
+		{
+			HeroCombatComponent->OnHitTargetActor(HitPawn);
+		}
+	}
 }
 
 void AMWHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)

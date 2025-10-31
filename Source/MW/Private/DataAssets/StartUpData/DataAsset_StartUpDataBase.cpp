@@ -4,6 +4,7 @@
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 #include "AbilitySystem/Abilities/MWGameplayAbility.h"
+#include "GameplayEffect.h"
 
 void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {
@@ -11,6 +12,21 @@ void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UMWAbilitySystemCo
 
 	GrantAbilities(ActivateOnGivenAbilities, InASCToGive, ApplyLevel);
 	GrantAbilities(ReactiveAbilities, InASCToGive, ApplyLevel);
+
+	if (!StartUpGameplayEffects.IsEmpty())
+	{
+		for (const TSubclassOf<UGameplayEffect>& EffectClass : StartUpGameplayEffects)
+		{
+			if (!EffectClass) continue;
+
+			UGameplayEffect* EffectCDO = EffectClass->GetDefaultObject<UGameplayEffect>();
+			InASCToGive->ApplyGameplayEffectToSelf(
+				EffectCDO,
+				ApplyLevel,
+				InASCToGive->MakeEffectContext()
+			);
+		}
+	}
 }
 
 void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UMWGameplayAbility>>& InAbilitiesToGive, UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
