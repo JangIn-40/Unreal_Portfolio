@@ -26,6 +26,7 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UMWAttributeSet, MaxMana);
 	ATTRIBUTE_ACCESSORS_BASIC(UMWAttributeSet, AttackPower);
 	ATTRIBUTE_ACCESSORS_BASIC(UMWAttributeSet, DefensePower);
+	ATTRIBUTE_ACCESSORS_BASIC(UMWAttributeSet, DamageTaken);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
 	FGameplayAttributeData CurrentHealth;
@@ -44,4 +45,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData DefensePower;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData DamageTaken;
 };

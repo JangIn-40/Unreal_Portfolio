@@ -6,6 +6,8 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GenericTeamAgentInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "MWGameplayTags.h"
 
 UMWAbilitySystemComponent* UMWBlueprintFunctionLibrary::NativeGetMWASCFromActor(AActor* InActor)
 {
@@ -75,4 +77,41 @@ UPawnCombatComponent* UMWBlueprintFunctionLibrary::BP_GetPawnCombatComponentFrom
 	OutValidType = CombatComponent ? EMWValidType::Valid : EMWValidType::InValid;
 
 	return CombatComponent;
+}
+
+FGameplayTag UMWBlueprintFunctionLibrary::ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDiff)
+{
+	check(InAttacker && InVictim);
+
+	const FVector VictimForward = InVictim->GetActorForwardVector();
+	const FVector VictimToAttackerNoramlized = (InAttacker->GetActorLocation() - InVictim->GetActorLocation()).GetSafeNormal();
+
+	const float DotResult = FVector::DotProduct(VictimForward, VictimToAttackerNoramlized);
+	OutAngleDiff = UKismetMathLibrary::DegAcos(DotResult);
+
+	const FVector CrossResult = FVector::CrossProduct(VictimForward, VictimToAttackerNoramlized);
+
+	if (CrossResult.Z < 0.f)
+	{
+		OutAngleDiff *= -1.f;
+	}
+
+	if (OutAngleDiff <= 45.f && OutAngleDiff >= -45.f)
+	{
+		return MWGameplayTags::Shared_Status_HitReact_Front;
+	}
+	else if (OutAngleDiff <= 135.f && OutAngleDiff > 45.f)
+	{
+		return MWGameplayTags::Shared_Status_HitReact_Right;
+	}
+	else if (OutAngleDiff < -135.f || OutAngleDiff > 135.f)
+	{
+		return MWGameplayTags::Shared_Status_HitReact_Back;
+	}
+	else if (OutAngleDiff < -45.f && OutAngleDiff >= -135.f)
+	{
+		return MWGameplayTags::Shared_Status_HitReact_Left;
+	}
+
+	return MWGameplayTags::Shared_Status_HitReact_Front;
 }

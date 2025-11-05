@@ -4,6 +4,8 @@
 #include "AbilitySystem/Abilities/MWHeroGameplayAbility.h"
 #include "Characters/MWHeroCharacter.h"
 #include "Controllers/MWHeroController.h"
+#include "AbilitySystem/MWAbilitySystemComponent.h"
+#include "MWGameplayTags.h"
 
 AMWHeroCharacter* UMWHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 {
@@ -28,4 +30,32 @@ AMWHeroController* UMWHeroGameplayAbility::GetHeroControllerFromActorInfo()
 UHeroCombatComponent* UMWHeroGameplayAbility::GetHeroCombatComponent()
 {
 	return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
+}
+
+FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroBaseDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, int32 InUsedComboCount)
+{
+	check(EffectClass);
+
+	FGameplayEffectSpecHandle EffectSpecHandle = MakeGameplayEffectSpecHandle(EffectClass);
+
+	EffectSpecHandle.Data->SetSetByCallerMagnitude(
+		MWGameplayTags::Shared_SetByCaller_BaseDamage,
+		InUsedComboCount
+	);
+
+	return EffectSpecHandle;
+}
+
+FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroSpecialAbilityDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float SpecialAbilityDamage)
+{
+	check(EffectClass);
+
+	FGameplayEffectSpecHandle EffectSpecHandle = MakeGameplayEffectSpecHandle(EffectClass);
+
+	EffectSpecHandle.Data->SetSetByCallerMagnitude(
+		MWGameplayTags::Shared_SetByCaller_SpecialAbilityDamage,
+		SpecialAbilityDamage
+	);
+
+	return EffectSpecHandle;
 }

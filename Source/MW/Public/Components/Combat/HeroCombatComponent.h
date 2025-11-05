@@ -14,4 +14,5 @@ class MW_API UHeroCombatComponent : public UPawnCombatComponent
 {
 	GENERATED_BODY()
 	
+
 };

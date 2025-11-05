@@ -39,4 +39,6 @@ protected:
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")
 	UMWAbilitySystemComponent* GetMWAbilitySystemComponentFromActorInfo() const;
 
+	FGameplayEffectSpecHandle MakeGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass);
+
 };

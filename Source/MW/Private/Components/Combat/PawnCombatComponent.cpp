@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "MWGameplayTags.h"
+#include "DataAssets/DamageData/DataAsset_DamageDataBase.h"
 
 void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamagetype ToggleDamageType)
 {
@@ -36,6 +37,11 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDama
 	{
 		OverlappedActors.Empty();
 	}
+}
+
+float UPawnCombatComponent::GetSpecialAbilityDamageAtLevel(FGameplayTag InTag, int32 InLevel)
+{
+	return SpecialAbilityDamageData->GetSpecialAbilityDamageAtLevel(InTag, InLevel);
 }
 
 void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor)

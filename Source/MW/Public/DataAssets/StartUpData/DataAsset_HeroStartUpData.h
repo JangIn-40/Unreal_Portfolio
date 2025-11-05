@@ -27,8 +27,6 @@ struct FMWHeroSpecialAbilitySets : public FMWHeroAbilitySet
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Player.Cooldown"))
-	FGameplayTag AbilityCooldownTag;
 };
 
 /**

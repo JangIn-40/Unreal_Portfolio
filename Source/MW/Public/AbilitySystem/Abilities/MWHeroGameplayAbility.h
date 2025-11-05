@@ -28,6 +28,12 @@ public:
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")
 	UHeroCombatComponent* GetHeroCombatComponent();
 
+	UFUNCTION(BlueprintPure, Category = "MW | Ability")
+	FGameplayEffectSpecHandle MakeHeroBaseDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, int32 InUsedComboCount);
+
+	UFUNCTION(BlueprintPure, Category = "MW | Ability")
+	FGameplayEffectSpecHandle MakeHeroSpecialAbilityDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float SpecialAbilityDamage);
+
 private:
 	TWeakObjectPtr<AMWHeroCharacter> CachedMWHeroCharacter;
 	TWeakObjectPtr<AMWHeroController> CachedMWHeroController;
