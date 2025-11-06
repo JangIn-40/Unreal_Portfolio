@@ -39,7 +39,7 @@ FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroBaseDamageSpecHandle(T
 	FGameplayEffectSpecHandle EffectSpecHandle = MakeGameplayEffectSpecHandle(EffectClass);
 
 	EffectSpecHandle.Data->SetSetByCallerMagnitude(
-		MWGameplayTags::Shared_SetByCaller_BaseDamage,
+		MWGameplayTags::Player_SetByCaller_ComboCount,
 		InUsedComboCount
 	);
 

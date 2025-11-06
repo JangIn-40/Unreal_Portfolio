@@ -23,6 +23,7 @@ AMWBaseCharacter::AMWBaseCharacter()
 	LeftWeaponCollisionBox->SetupAttachment(GetMesh());
 	LeftWeaponCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	LeftWeaponCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxBeginOverlap);
+	LeftWeaponCollisionBox->OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxEndOverlap);
 
 	RightWeaponCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("RightWeaponCollisionBox"));
 	RightWeaponCollisionBox->SetupAttachment(GetMesh());
@@ -68,6 +69,11 @@ void AMWBaseCharacter::PostEditChangeProperty(FPropertyChangedEvent& PropertyCha
 #endif
 
 void AMWBaseCharacter::OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+
+}
+
+void AMWBaseCharacter::OnWeaponCollisionBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 
 }

@@ -15,10 +15,15 @@ namespace MWGameplayTags
 	/* Player Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light, "Player.Ability.Attack.Light");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Recovery, "Player.Ability.Attack.Recovery");
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_SpecialAbility_ForcePush, "Player.Ability.SpecialAbility.ForcePush");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_HitPause, "Player.Ability.HitPause");
+
+	UE_DEFINE_GAMEPLAY_TAG(Player_SpecialAbility_ForcePush, "Player.SpecialAbility.ForcePush");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_SaveAttack, "Player.Event.SaveAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ResetAttack, "Player.Event.ResetAttack");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_HitPause, "Player.Event.HitPause");
+
+	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_ComboCount, "Player.SetByCaller.ComboCount");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_IsAttacking, "Player.Status.IsAttacking");
 
@@ -32,8 +37,8 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeleeHit, "Shared.Event.MeleeHit");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact, "Shared.Event.HitReact");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Knockback, "Shared.Event.Knockback");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Death, "Shared.Event.Death");
 
-	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_SpecialAbilityDamage, "Shared.SetByCaller.SpecialAbilityDamage");
 		
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_HitReact_Front, "Shared.Status.HitReact.Front");

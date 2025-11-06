@@ -16,10 +16,15 @@ namespace MWGameplayTags
 	/* Player Tags */
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Recovery);
-	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_SpecialAbility_ForcePush);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_HitPause);
+
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SpecialAbility_ForcePush);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_SaveAttack);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_ResetAttack);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_HitPause);
+
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_ComboCount);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_IsAttacking);
 
@@ -33,8 +38,8 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_HitReact);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Knockback);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Death);
 
-	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_SpecialAbilityDamage);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_HitReact_Front);

@@ -44,5 +44,8 @@ public:
 	static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* InActor, EMWValidType& OutValidType);
 
 	UFUNCTION(BlueprintPure, Category = "MW | FunctionLibrary")
-	static FGameplayTag ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDiff);
+	static FGameplayTag ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim);
+
+	UFUNCTION(BlueprintPure, Category = "MW | FunctionLibrary")
+	static FGameplayTag ComputeHitReactOnlyFwdBwdDirectionTag(AActor* InAttacker, AActor* InVictim);
 };

@@ -7,7 +7,7 @@ float UDataAsset_DamageDataBase::GetSpecialAbilityDamageAtLevel(FGameplayTag InT
 {
 	for (const FMWDamageData& DamageData : DamageDatas)
 	{
-		if (DamageData.InputTag == InTag)
+		if (DamageData.PlayerSpecialAbilityTag == InTag)
 		{
 			return DamageData.SpecialAbilityDamage.GetValueAtLevel(InLevel);
 		}

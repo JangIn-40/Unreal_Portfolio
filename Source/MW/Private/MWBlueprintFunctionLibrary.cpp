@@ -79,7 +79,7 @@ UPawnCombatComponent* UMWBlueprintFunctionLibrary::BP_GetPawnCombatComponentFrom
 	return CombatComponent;
 }
 
-FGameplayTag UMWBlueprintFunctionLibrary::ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDiff)
+FGameplayTag UMWBlueprintFunctionLibrary::ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim)
 {
 	check(InAttacker && InVictim);
 
@@ -87,7 +87,7 @@ FGameplayTag UMWBlueprintFunctionLibrary::ComputeHitReactDirectionTag(AActor* In
 	const FVector VictimToAttackerNoramlized = (InAttacker->GetActorLocation() - InVictim->GetActorLocation()).GetSafeNormal();
 
 	const float DotResult = FVector::DotProduct(VictimForward, VictimToAttackerNoramlized);
-	OutAngleDiff = UKismetMathLibrary::DegAcos(DotResult);
+	float OutAngleDiff = UKismetMathLibrary::DegAcos(DotResult);
 
 	const FVector CrossResult = FVector::CrossProduct(VictimForward, VictimToAttackerNoramlized);
 
@@ -114,4 +114,23 @@ FGameplayTag UMWBlueprintFunctionLibrary::ComputeHitReactDirectionTag(AActor* In
 	}
 
 	return MWGameplayTags::Shared_Status_HitReact_Front;
+}
+
+FGameplayTag UMWBlueprintFunctionLibrary::ComputeHitReactOnlyFwdBwdDirectionTag(AActor* InAttacker, AActor* InVictim)
+{
+	check(InAttacker && InVictim);
+
+	const FVector VictimForward = InVictim->GetActorForwardVector();
+	const FVector VictimToAttackerNoramlized = (InAttacker->GetActorLocation() - InVictim->GetActorLocation()).GetSafeNormal();
+
+	const float DotResult = FVector::DotProduct(VictimForward, VictimToAttackerNoramlized);
+
+	if (DotResult >= 0.f)
+	{
+		return MWGameplayTags::Shared_Status_HitReact_Front;
+	}
+	else
+	{
+		return MWGameplayTags::Shared_Status_HitReact_Back;
+	}
 }

@@ -100,6 +100,17 @@ void AMWHeroCharacter::OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* Ove
 	}
 }
 
+void AMWHeroCharacter::OnWeaponCollisionBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	{
+		if (UMWBlueprintFunctionLibrary::IsTargetPawnHostile(this, HitPawn))
+		{
+			HeroCombatComponent->OnWeaponPulledTargetActor(OtherActor);
+		}
+	}
+}
+
 void AMWHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();

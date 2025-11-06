@@ -16,6 +16,13 @@ enum class EMWAbilityActivationPolicy : uint8
 	OnGiven
 };
 
+UENUM(BlueprintType)
+enum class EMWSuccessType : uint8
+{
+	Successful,
+	Failed
+};
+
 /**
  * 
  */
@@ -41,4 +48,8 @@ protected:
 
 	FGameplayEffectSpecHandle MakeGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass);
 
+	FActiveGameplayEffectHandle NativeApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | Ability", meta = (DisplayName = "Apply Gameplay Effect Spec Handle To Target Actor", ExpandEnumAsExecs = "OutSuccessType"))
+	FActiveGameplayEffectHandle BP_ApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, EMWSuccessType& OutSuccessType);
 };

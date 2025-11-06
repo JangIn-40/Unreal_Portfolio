@@ -13,8 +13,8 @@ struct FMWDamageData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag.SpecialAbility"))
-	FGameplayTag InputTag;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Player.SpecialAbility"))
+	FGameplayTag PlayerSpecialAbilityTag;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FScalableFloat SpecialAbilityDamage;
@@ -32,6 +32,6 @@ public:
 	virtual float GetSpecialAbilityDamageAtLevel(FGameplayTag InTag, int32 InLevel);
 
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "Player.SpecialAbility"))
 	TArray<FMWDamageData> DamageDatas;
 };

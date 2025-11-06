@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/GEExecCalc/GEExecCalc_DamageTaken.h"
 #include "AbilitySystem/MWAttributeSet.h"
+#include "MWGameplayTags.h"
 
 struct FMWDamageCapture
 {
@@ -33,4 +34,52 @@ UGEExecCalc_DamageTaken::UGEExecCalc_DamageTaken()
 
 void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
+	const FGameplayEffectSpec& EffectSpec = ExecutionParams.GetOwningSpec();
+
+	FAggregatorEvaluateParameters EvaluateParameters;
+	EvaluateParameters.SourceTags = EffectSpec.CapturedSourceTags.GetAggregatedTags();
+	EvaluateParameters.TargetTags = EffectSpec.CapturedTargetTags.GetAggregatedTags();
+
+	float SourceAttackPower = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetMWDamageCapture().AttackPowerDef, EvaluateParameters, SourceAttackPower);
+
+	int32 ComboCount = 0.f;
+	float SpecialAbilityDamage = 0.f;
+
+	for (const TPair<FGameplayTag, float>& TagMagnitude : EffectSpec.SetByCallerTagMagnitudes)
+	{
+		if (TagMagnitude.Key.MatchesTagExact(MWGameplayTags::Player_SetByCaller_ComboCount))
+		{
+			ComboCount = TagMagnitude.Value;
+		}
+		else if (TagMagnitude.Key.MatchesTagExact(MWGameplayTags::Shared_SetByCaller_SpecialAbilityDamage))
+		{
+			SpecialAbilityDamage = TagMagnitude.Value;
+		}
+	}
+
+	float TargetDefensePower = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetMWDamageCapture().DefensePowerDef, EvaluateParameters, TargetDefensePower);
+
+	float FinalDamage = 0.f;
+
+	if (ComboCount != 0)
+	{
+		const float DamageIncreasePercent = (ComboCount - 1) * 0.15f + 1.f;
+
+		SourceAttackPower *= ComboCount;
+	}
+
+	FinalDamage = (SourceAttackPower + SpecialAbilityDamage) / TargetDefensePower;
+
+	if (FinalDamage > 0.f)
+	{
+		OutExecutionOutput.AddOutputModifier(
+			FGameplayModifierEvaluatedData(
+				GetMWDamageCapture().DamageTakenProperty,
+				EGameplayModOp::Override,
+				FinalDamage
+			)
+		);
+	}
 }

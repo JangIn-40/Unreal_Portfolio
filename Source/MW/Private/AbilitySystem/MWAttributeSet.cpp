@@ -5,6 +5,9 @@
 #include "GameplayEffectExtension.h"
 #include "MWBlueprintFunctionLibrary.h"
 #include "MWGameplayTags.h"
+#include "AbilitySystemBlueprintLibrary.h"
+
+#include "MWDebugHelper.h"
 
 UMWAttributeSet::UMWAttributeSet()
 {
@@ -41,8 +44,24 @@ void UMWAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 
 		SetCurrentHealth(NewCurrentHealth);
 
+		Debug::Print(TEXT("Final Damage is "), DamageDone);
+		Debug::Print(TEXT("CurrentHealth is "), NewCurrentHealth);
+
 		if (GetCurrentHealth() <= 0.f)
 		{
+			const FGameplayEffectContextHandle& ContextHandle = Data.EffectSpec.GetEffectContext();
+			AActor* Instigator = ContextHandle.GetInstigator();
+
+			FGameplayEventData EventData;
+			EventData.Instigator = Instigator;
+			EventData.Target = Data.Target.GetAvatarActor();
+			
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+				Data.Target.GetAvatarActor(),
+				MWGameplayTags::Shared_Event_Death,
+				EventData
+			);
+
 			UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(Data.Target.GetAvatarActor(), MWGameplayTags::Shared_Status_Death);
 		}
 	}
