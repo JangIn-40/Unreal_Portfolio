@@ -17,6 +17,13 @@ enum class EMWValidType : uint8
 	InValid
 };
 
+UENUM()
+enum class EMWConfirmType : uint8
+{
+	Yes,
+	No
+};
+
 /**
  * 
  */
@@ -29,6 +36,9 @@ public:
 	static UMWAbilitySystemComponent* NativeGetMWASCFromActor(AActor* InActor);
 
 	static bool NativeDoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary", meta = (DisplayName = "Does Actor Have Tag", ExpandEnumAsExecs = "OutConfirmType"))
+	static void BP_DoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, EMWConfirmType& OutConfirmType);
 
 	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
 	static void AddGameplayTagIfNone(AActor* InActor, FGameplayTag TagToAdd);
@@ -48,4 +58,5 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "MW | FunctionLibrary")
 	static FGameplayTag ComputeHitReactOnlyFwdBwdDirectionTag(AActor* InAttacker, AActor* InVictim);
+
 };

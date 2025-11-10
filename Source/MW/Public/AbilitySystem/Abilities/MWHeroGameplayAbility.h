@@ -29,6 +29,9 @@ public:
 	UHeroCombatComponent* GetHeroCombatComponent();
 
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")
+	UCharacterMovementComponent* GetHeroMovementComponent();
+
+	UFUNCTION(BlueprintPure, Category = "MW | Ability")
 	FGameplayEffectSpecHandle MakeHeroBaseDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, int32 InUsedComboCount);
 
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")

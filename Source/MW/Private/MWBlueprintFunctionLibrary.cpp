@@ -23,6 +23,11 @@ bool UMWBlueprintFunctionLibrary::NativeDoesActorHaveTag(AActor* InActor, FGamep
 	return ASC->HasMatchingGameplayTag(TagToCheck);
 }
 
+void UMWBlueprintFunctionLibrary::BP_DoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, EMWConfirmType& OutConfirmType)
+{
+	OutConfirmType = NativeDoesActorHaveTag(InActor, TagToCheck) ? EMWConfirmType::Yes : EMWConfirmType::No;
+}
+
 void UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(AActor* InActor, FGameplayTag TagToAdd)
 {
 	UMWAbilitySystemComponent* ASC = NativeGetMWASCFromActor(InActor);

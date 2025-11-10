@@ -5,6 +5,8 @@
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 #include "Components/Combat/PawnCombatComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "MWBlueprintFunctionLibrary.h"
+#include "MWGameplayTags.h"
 
 void UMWGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -68,4 +70,31 @@ FActiveGameplayEffectHandle UMWGameplayAbility::BP_ApplyEffectSpecHandleToTarget
 	OutSuccessType = ActiveEffectHandle.WasSuccessfullyApplied() ? EMWSuccessType::Successful : EMWSuccessType::Failed;
 
 	return ActiveEffectHandle;
+}
+
+void UMWGameplayAbility::ApplyEffectSpecHandleToHitResult(const FGameplayEffectSpecHandle& InSpecHandle, const TArray<FHitResult> InHitResults)
+{
+	if (InHitResults.IsEmpty())
+	{
+		return;
+	}
+
+	APawn* OwningPawn = CastChecked<APawn>(GetAvatarActorFromActorInfo());
+
+	for (const FHitResult& HitResult : InHitResults)
+	{
+		if (APawn* HitPawn = Cast<APawn>(HitResult.GetActor()))
+		{
+			if (UMWBlueprintFunctionLibrary::IsTargetPawnHostile(OwningPawn, HitPawn))
+			{
+				NativeApplyEffectSpecHandleToTarget(HitPawn, InSpecHandle);
+
+				FGameplayEventData Data;
+				Data.Instigator = OwningPawn;
+				Data.Target = HitPawn;
+
+				UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitPawn, MWGameplayTags::Shared_Event_HitReact, Data);
+			}
+		}
+	}
 }

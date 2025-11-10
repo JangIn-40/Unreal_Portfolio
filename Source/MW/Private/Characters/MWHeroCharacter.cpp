@@ -73,8 +73,6 @@ void AMWHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
-	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
-	MWInputComponent->BindNativeInputAction(InputConfigDataAsset, MWGameplayTags::InputTag_Jump, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
 
 	MWInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }

@@ -5,6 +5,8 @@
 #include "Characters/MWHeroCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "MWBlueprintFunctionLibrary.h"
+#include "MWGameplayTags.h"
 
 #include "MWDebugHelper.h"
 
@@ -39,6 +41,17 @@ void UMWHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 
 	bIsInAir = OwningMovementComponent->IsFalling();
 
+	if (bIsInAir)
+	{
+		UMWBlueprintFunctionLibrary::RemoveGameplayTagIfFound(OwningHeroCharacter, MWGameplayTags::Player_Status_IsGrounded);
+		UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(OwningHeroCharacter, MWGameplayTags::Player_Status_IsFalling);
+	}
+	else
+	{
+		UMWBlueprintFunctionLibrary::RemoveGameplayTagIfFound(OwningHeroCharacter, MWGameplayTags::Player_Status_IsFalling);
+		UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(OwningHeroCharacter, MWGameplayTags::Player_Status_IsGrounded);
+	}
+	
 	bIsPlayingAnyMontageSection = NoneSlotName == Montage_GetCurrentSection();
 
 	bIsFullBody = GetCurveValue(FullBodyCurveName) > 0.f;
