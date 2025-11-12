@@ -35,7 +35,7 @@ public:
 	FGameplayEffectSpecHandle MakeHeroBaseDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, int32 InUsedComboCount);
 
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")
-	FGameplayEffectSpecHandle MakeHeroSpecialAbilityDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float SpecialAbilityDamage);
+	FGameplayEffectSpecHandle MakeHeroSpecialAbilityDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, const FScalableFloat& SpecialAbilityDamage);
 
 private:
 	TWeakObjectPtr<AMWHeroCharacter> CachedMWHeroCharacter;

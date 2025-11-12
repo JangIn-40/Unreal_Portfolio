@@ -38,6 +38,11 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_DoubleJump, "Player.Cooldown.SpecialAbility.DoubleJump");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_Slam, "Player.Cooldown.SpecialAbility.Slam");
 
+	/* Enemy Tags */
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Melee, "Enemy.Ability.Melee");
+
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Strafing, "Enemy.Status.Strafing");
+
 	/* Shared Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact, "Shared.Ability.HitReact");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Knockback, "Shared.Ability.Knockback");

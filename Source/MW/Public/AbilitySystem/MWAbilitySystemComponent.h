@@ -18,6 +18,9 @@ public:
 	void OnAbilityInputPressed(const FGameplayTag& InInputTag);
 	void OnAbilityInputReleased(const FGameplayTag& InInputTag);
 
+	UFUNCTION(BlueprintCallable, Category = "MW | Ability")
+	bool TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate);
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Combat")
 	bool bShouldProceedToNextCombo = false;

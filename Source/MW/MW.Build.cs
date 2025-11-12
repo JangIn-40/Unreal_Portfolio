@@ -13,8 +13,9 @@ public class MW : ModuleRules
 			"Engine",
 			"InputCore", "EnhancedInput", 
 			"GameplayTags", "GameplayTasks", 
-			"AnimGraphRuntime"
-		});
+			"AnimGraphRuntime",
+            "MotionWarping"
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

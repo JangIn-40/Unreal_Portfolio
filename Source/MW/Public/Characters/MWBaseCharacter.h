@@ -12,6 +12,7 @@ class UMWAbilitySystemComponent;
 class UMWAttributeSet;
 class UBoxComponent;
 class UDataAsset_StartUpDataBase;
+class UMotionWarpingComponent;
 
 UCLASS()
 class MW_API AMWBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
@@ -46,6 +47,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UMWAttributeSet* MWAttributeSet;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	UMotionWarpingComponent* MotionWarpingComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
 	UBoxComponent* LeftWeaponCollisionBox;

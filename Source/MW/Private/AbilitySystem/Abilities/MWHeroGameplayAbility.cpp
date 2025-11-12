@@ -51,7 +51,7 @@ FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroBaseDamageSpecHandle(T
 	return EffectSpecHandle;
 }
 
-FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroSpecialAbilityDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float SpecialAbilityDamage)
+FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroSpecialAbilityDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, const FScalableFloat& InSpecialAbilityDamage)
 {
 	check(EffectClass);
 
@@ -59,7 +59,7 @@ FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroSpecialAbilityDamageSp
 
 	EffectSpecHandle.Data->SetSetByCallerMagnitude(
 		MWGameplayTags::Shared_SetByCaller_SpecialAbilityDamage,
-		SpecialAbilityDamage
+		InSpecialAbilityDamage.GetValueAtLevel(GetAbilityLevel())
 	);
 
 	return EffectSpecHandle;

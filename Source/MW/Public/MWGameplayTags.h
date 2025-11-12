@@ -39,6 +39,12 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_DoubleJump);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_Slam);
 
+	/* Enemy Tags */
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Melee);
+
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
+
+
 	/* Shared Tags */
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_HitReact);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_Knockback);
@@ -50,6 +56,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Death);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_AOE);
 
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_SpecialAbilityDamage);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_HitReact_Front);

@@ -31,3 +31,19 @@ void UMWAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInp
 {
 
 }
+
+bool UMWAbilitySystemComponent::TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate)
+{
+	check(AbilityTagToActivate.IsValid());
+
+	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		if (!AbilitySpec.Ability->GetAssetTags().HasTagExact(AbilityTagToActivate)) continue;
+
+		return TryActivateAbility(AbilitySpec.Handle);
+	}
+
+	Debug::Print("Ability Activate failed");
+
+	return false;
+}

@@ -27,15 +27,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "MW | Combat")
 	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamagetype ToggleDamageType);
 
-	UFUNCTION(BlueprintCallable, Category = "MW | Combat")
-	float GetSpecialAbilityDamageAtLevel(FGameplayTag InTag, int32 InLevel);
-
 	virtual void OnHitTargetActor(AActor* HitActor);
 	virtual void OnWeaponPulledTargetActor(AActor* InteractedActor);
 
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
-	UDataAsset_DamageDataBase* SpecialAbilityDamageData;
-
 	TArray<AActor*> OverlappedActors;
 };

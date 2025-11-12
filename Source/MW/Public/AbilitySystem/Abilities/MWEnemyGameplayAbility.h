@@ -23,6 +23,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")
 	UEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
 
+	UFUNCTION(BlueprintPure, Category = "MW | Ability")
+	FGameplayEffectSpecHandle MakeEnemyBaseDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass);
+
 private:
 	TWeakObjectPtr<AMWEnemyCharacter> CachedMWEnemyCharacter;
 };

@@ -6,6 +6,7 @@
 #include "Components/Combat/EnemyCombatComponent.h"
 #include "Engine/AssetManager.h"
 #include "DataAssets/StartUpData/DataAsset_EnemyStartUpData.h"
+#include "MWBlueprintFunctionLibrary.h"
 
 #include "MWDebugHelper.h"
 
@@ -18,7 +19,7 @@ AMWEnemyCharacter::AMWEnemyCharacter()
 	bUseControllerRotationRoll = false;
 
 	GetCharacterMovement()->bUseControllerDesiredRotation = false;
-	GetCharacterMovement()->bOrientRotationToMovement = false;
+	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 180.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 300.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
@@ -40,7 +41,13 @@ UPawnCombatComponent* AMWEnemyCharacter::GetPawnCombatComponent() const
 
 void AMWEnemyCharacter::OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
+	if (APawn* HitActor = Cast<APawn>(OtherActor))
+	{
+		if (UMWBlueprintFunctionLibrary::IsTargetPawnHostile(this, HitActor))
+		{
+			EnemyCombatComponent->OnHitTargetActor(HitActor);
+		}
+	}
 }
 
 void AMWEnemyCharacter::InitEnemyStartUpData()

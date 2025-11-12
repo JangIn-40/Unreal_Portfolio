@@ -5,6 +5,7 @@
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 #include "AbilitySystem/MWAttributeSet.h"
 #include "Components/BoxComponent.h"
+#include "MotionWarpingComponent.h"
 
 // Sets default values
 AMWBaseCharacter::AMWBaseCharacter()
@@ -18,6 +19,8 @@ AMWBaseCharacter::AMWBaseCharacter()
 	MWAbilitySystemComponent = CreateDefaultSubobject<UMWAbilitySystemComponent>(TEXT("MWAbilitySystemComponent"));
 
 	MWAttributeSet = CreateDefaultSubobject<UMWAttributeSet>(TEXT("MWAttributeSet"));
+
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 
 	LeftWeaponCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("LeftWeaponCollisionBox"));
 	LeftWeaponCollisionBox->SetupAttachment(GetMesh());
