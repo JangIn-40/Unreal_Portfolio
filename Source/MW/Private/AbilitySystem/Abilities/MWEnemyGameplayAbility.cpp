@@ -34,3 +34,18 @@ FGameplayEffectSpecHandle UMWEnemyGameplayAbility::MakeEnemyBaseDamageSpecHandle
 
 	return SpecHandle;
 }
+
+FGameplayEffectSpecHandle UMWEnemyGameplayAbility::MakeEnemySpecialDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, FGameplayTag InSetByCallerTag, const FScalableFloat& InDamageScalableFloat)
+{
+	check(EffectClass);
+
+	FGameplayEffectSpecHandle SpecHandle = MakeGameplayEffectSpecHandle(EffectClass);
+
+	SpecHandle.Data->SetSetByCallerMagnitude(
+		InSetByCallerTag,
+		InDamageScalableFloat.GetValueAtLevel(GetAbilityLevel())
+	);
+
+	return SpecHandle;
+}
+

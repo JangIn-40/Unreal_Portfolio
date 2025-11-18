@@ -6,6 +6,7 @@
 #include "AbilitySystem/MWAttributeSet.h"
 #include "Components/BoxComponent.h"
 #include "MotionWarpingComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AMWBaseCharacter::AMWBaseCharacter()
@@ -32,6 +33,9 @@ AMWBaseCharacter::AMWBaseCharacter()
 	RightWeaponCollisionBox->SetupAttachment(GetMesh());
 	RightWeaponCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	RightWeaponCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxBeginOverlap);
+	RightWeaponCollisionBox->OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxEndOverlap);
+
+	GetCharacterMovement()->BrakingDecelerationFlying = 1500.f;
 }
 
 UAbilitySystemComponent* AMWBaseCharacter::GetAbilitySystemComponent() const

@@ -9,6 +9,7 @@
 
 class UMWAbilitySystemComponent;
 class UPawnCombatComponent;
+struct FActiveGameplayEffectHandle;
 
 UENUM()
 enum class EMWValidType : uint8
@@ -59,4 +60,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "MW | FunctionLibrary")
 	static FGameplayTag ComputeHitReactOnlyFwdBwdDirectionTag(AActor* InAttacker, AActor* InVictim);
 
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
+	static FActiveGameplayEffectHandle ApplyGameplayEffectSpecHandleToTarget(AActor* InInstigator, AActor* InTargetActor, const FGameplayEffectSpecHandle& InSpecHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
+	static bool RemoveActiveGameplayEffect(AActor* InTargetActor, FActiveGameplayEffectHandle EffectHandle);
 };

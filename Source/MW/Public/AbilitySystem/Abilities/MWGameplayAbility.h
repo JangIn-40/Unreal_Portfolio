@@ -8,6 +8,7 @@
 
 class UMWAbilitySystemComponent;
 class UPawnCombatComponent;
+class AMWBaseCharacter;
 
 UENUM(BlueprintType)
 enum class EMWAbilityActivationPolicy : uint8
@@ -46,6 +47,9 @@ protected:
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")
 	UMWAbilitySystemComponent* GetMWAbilitySystemComponentFromActorInfo() const;
 
+	UFUNCTION(BlueprintPure, Category = "MW | Ability")
+	AMWBaseCharacter* GetCharacterFromActorInfo();
+
 	FGameplayEffectSpecHandle MakeGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass);
 
 	FActiveGameplayEffectHandle NativeApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle);
@@ -55,4 +59,7 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "MW | Ability")
 	void ApplyEffectSpecHandleToHitResult(const FGameplayEffectSpecHandle& InSpecHandle, const TArray<FHitResult> InHitResults);
+
+private:
+	TWeakObjectPtr<AMWBaseCharacter> CachedMWCharacter;
 };

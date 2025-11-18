@@ -40,26 +40,38 @@ namespace MWGameplayTags
 
 	/* Enemy Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Melee, "Enemy.Ability.Melee");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_SpawnDamageZone, "Enemy.Ability.SpawnDamageZone");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_UpperCut, "Enemy.Ability.UpperCut");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_SmallCombo, "Enemy.Ability.SmallCombo");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_BigSmash, "Enemy.Ability.BigSmash");
+
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnDamageZone, "Enemy.Event.SpawnDamageZone");
 
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Strafing, "Enemy.Status.Strafing");
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_UnderAttack, "Enemy.Status.UnderAttack");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_DamageZone_Activating, "Enemy.Status.DamageZone.Activating");
 
 	/* Shared Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact, "Shared.Ability.HitReact");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Knockback, "Shared.Ability.Knockback");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Death, "Shared.Ability.Death");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Stun, "Shared.Ability.Stun");
 
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeleeHit, "Shared.Event.MeleeHit");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact, "Shared.Event.HitReact");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Knockback, "Shared.Event.Knockback");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Death, "Shared.Event.Death");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_AOE, "Shared.Event.AOE");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Stun, "Shared.Event.Stun");
 
+	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_SpecialAbilityDamage, "Shared.SetByCaller.SpecialAbilityDamage");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_DotDamage, "Shared.SetByCaller.DotDamage");
 		
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_HitReact_Front, "Shared.Status.HitReact.Front");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_HitReact_Back, "Shared.Status.HitReact.Back");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_HitReact_Right, "Shared.Status.HitReact.Right");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_HitReact_Left, "Shared.Status.HitReact.Left");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Death, "Shared.Status.Death");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Stun, "Shared.Status.Stun");
 }

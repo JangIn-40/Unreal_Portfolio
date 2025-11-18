@@ -7,6 +7,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "MWBlueprintFunctionLibrary.h"
 #include "MWGameplayTags.h"
+#include "Characters/MWBaseCharacter.h"
 
 void UMWGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -42,6 +43,16 @@ UPawnCombatComponent* UMWGameplayAbility::GetPawnCombatComponentFromActorInfo() 
 UMWAbilitySystemComponent* UMWGameplayAbility::GetMWAbilitySystemComponentFromActorInfo() const
 {
 	return Cast<UMWAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
+}
+
+AMWBaseCharacter* UMWGameplayAbility::GetCharacterFromActorInfo()
+{
+	if (!CachedMWCharacter.IsValid())
+	{
+		CachedMWCharacter = Cast<AMWBaseCharacter>(CurrentActorInfo->AvatarActor);
+	}
+
+	return CachedMWCharacter.IsValid() ? CachedMWCharacter.Get() : nullptr;
 }
 
 FGameplayEffectSpecHandle UMWGameplayAbility::MakeGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass)

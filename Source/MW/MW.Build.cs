@@ -11,8 +11,8 @@ public class MW : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] { 
 			"Core", "CoreUObject",
 			"Engine",
-			"InputCore", "EnhancedInput", 
-			"GameplayTags", "GameplayTasks", 
+			"InputCore", "EnhancedInput",
+            "GameplayAbilities", "GameplayTags", "GameplayTasks", 
 			"AnimGraphRuntime",
             "MotionWarping",
 			"NavigationSystem"

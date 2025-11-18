@@ -9,6 +9,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "MWGameplayTags.h"
 
+#include "MWDebugHelper.h"
+
 UMWAbilitySystemComponent* UMWBlueprintFunctionLibrary::NativeGetMWASCFromActor(AActor* InActor)
 {
 	check(InActor);
@@ -138,4 +140,21 @@ FGameplayTag UMWBlueprintFunctionLibrary::ComputeHitReactOnlyFwdBwdDirectionTag(
 	{
 		return MWGameplayTags::Shared_Status_HitReact_Back;
 	}
+}
+
+FActiveGameplayEffectHandle UMWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTarget(AActor* InInstigator, AActor* InTargetActor, const FGameplayEffectSpecHandle& InSpecHandle)
+{
+	UMWAbilitySystemComponent* SourceASC = NativeGetMWASCFromActor(InInstigator);
+	UMWAbilitySystemComponent* TargetASC = NativeGetMWASCFromActor(InTargetActor);
+
+	FActiveGameplayEffectHandle ActiveGameplayHandle = SourceASC->ApplyGameplayEffectSpecToTarget(*InSpecHandle.Data, TargetASC);
+
+	return ActiveGameplayHandle;
+}
+
+bool UMWBlueprintFunctionLibrary::RemoveActiveGameplayEffect(AActor* InTargetActor, FActiveGameplayEffectHandle EffectHandle)
+{
+	UMWAbilitySystemComponent* TargetASC = NativeGetMWASCFromActor(InTargetActor);
+
+	return TargetASC->RemoveActiveGameplayEffect(EffectHandle);
 }
