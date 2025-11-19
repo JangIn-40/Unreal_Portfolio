@@ -15,7 +15,7 @@
 AMWDamageZoneBase::AMWDamageZoneBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	DamageZoneCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("DamageZoneCollisionBox"));
 	SetRootComponent(DamageZoneCollisionBox);
@@ -55,6 +55,7 @@ void AMWDamageZoneBase::OnDamageZoneBeginOverlap(UPrimitiveComponent* Overlapped
 		HandleApplyDamage(OverlapPawn, Data);
 	}
 }
+
 
 void AMWDamageZoneBase::OnDamageZoneEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {

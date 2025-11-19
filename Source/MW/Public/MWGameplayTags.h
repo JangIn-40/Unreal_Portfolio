@@ -45,6 +45,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_UpperCut);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_SmallCombo);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_BigSmash);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Ranged);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Event_SpawnDamageZone);
 
@@ -64,6 +65,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Death);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_AOE);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Stun);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_SpawnProjectile);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_SpecialAbilityDamage);

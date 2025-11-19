@@ -44,6 +44,7 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_UpperCut, "Enemy.Ability.UpperCut");
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_SmallCombo, "Enemy.Ability.SmallCombo");
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_BigSmash, "Enemy.Ability.BigSmash");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Ranged, "Enemy.Ability.Ranged");
 
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnDamageZone, "Enemy.Event.SpawnDamageZone");
 
@@ -63,6 +64,7 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Death, "Shared.Event.Death");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_AOE, "Shared.Event.AOE");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Stun, "Shared.Event.Stun");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_SpawnProjectile, "Shared.Event.SpawnProjectile");
 
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_SpecialAbilityDamage, "Shared.SetByCaller.SpecialAbilityDamage");
