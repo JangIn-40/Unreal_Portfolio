@@ -7,6 +7,8 @@
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 #include "MWAttributeSet.generated.h"
 
+class IPawnUIInterface;
+
 /**
  * 
  */
@@ -48,4 +50,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData DamageTaken;
+
+private:
+	TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface;
 };

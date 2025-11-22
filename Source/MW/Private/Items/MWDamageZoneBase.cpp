@@ -66,9 +66,11 @@ void AMWDamageZoneBase::OnDamageZoneEndOverlap(UPrimitiveComponent* OverlappedCo
 
 	OverlappedActors.Remove(OtherActor);
 
-	Debug::Print("End Overlap Completed");
-
-	UMWBlueprintFunctionLibrary::RemoveActiveGameplayEffect(OtherActor, GameplayEffectHandle);
+	APawn* OverlapPawn = Cast<APawn>(OtherActor);
+	if (OverlapPawn && UMWBlueprintFunctionLibrary::IsTargetPawnHostile(GetInstigator(), OverlapPawn))
+	{
+		UMWBlueprintFunctionLibrary::RemoveActiveGameplayEffect(OtherActor, GameplayEffectHandle);
+	}
 }
 
 void AMWDamageZoneBase::HandleApplyDamage(APawn* InOverlappedPawn, const FGameplayEventData& InPayload)

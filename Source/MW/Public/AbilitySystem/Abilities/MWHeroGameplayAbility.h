@@ -37,6 +37,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "MW | Ability")
 	FGameplayEffectSpecHandle MakeHeroSpecialAbilityDamageSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, const FScalableFloat& SpecialAbilityDamage);
 
+	UFUNCTION(BlueprintPure, Category = "MW | Ability")
+	bool GetAbilityRemainingCooldownByTag(FGameplayTag InCooldownTag, float& TotalCooldownTime, float& RemainingCooldownTime);
+
 private:
 	TWeakObjectPtr<AMWHeroCharacter> CachedMWHeroCharacter;
 	TWeakObjectPtr<AMWHeroController> CachedMWHeroController;

@@ -64,3 +64,20 @@ FGameplayEffectSpecHandle UMWHeroGameplayAbility::MakeHeroSpecialAbilityDamageSp
 
 	return EffectSpecHandle;
 }
+
+bool UMWHeroGameplayAbility::GetAbilityRemainingCooldownByTag(FGameplayTag InCooldownTag, float& TotalCooldownTime, float& RemainingCooldownTime)
+{
+	check(InCooldownTag.IsValid());
+
+	FGameplayEffectQuery CooldownQuery = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(InCooldownTag.GetSingleTagContainer());
+
+	TArray<TPair<float, float>> TimeRemainingDuration = GetAbilitySystemComponentFromActorInfo()->GetActiveEffectsTimeRemainingAndDuration(CooldownQuery);
+
+	if (!TimeRemainingDuration.IsEmpty())
+	{
+		RemainingCooldownTime = TimeRemainingDuration[0].Key;
+		TotalCooldownTime = TimeRemainingDuration[0].Value;
+	}
+
+	return RemainingCooldownTime > 0.f;
+}

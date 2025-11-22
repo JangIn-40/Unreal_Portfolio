@@ -8,6 +8,7 @@
 #include "Interfaces/PawnCombatInterface.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "MWGameplayTags.h"
+#include "Types/MWCountDown.h"
 
 #include "MWDebugHelper.h"
 
@@ -157,4 +158,41 @@ bool UMWBlueprintFunctionLibrary::RemoveActiveGameplayEffect(AActor* InTargetAct
 	UMWAbilitySystemComponent* TargetASC = NativeGetMWASCFromActor(InTargetActor);
 
 	return TargetASC->RemoveActiveGameplayEffect(EffectHandle);
+}
+
+void UMWBlueprintFunctionLibrary::CountDown(const UObject* WorldContextObject, float TotalTime, float UpdateInterval, float& OutRemainingTime, EMWCountdownActionInput CountDownInput, UPARAM(DisplayName = "Output") EMWCountdownActionOutput& CountDownOutput, FLatentActionInfo LatentInfo)
+{
+	UWorld* World = nullptr;
+
+	if (GEngine)
+	{
+		World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull);
+	}
+
+	if (!World)
+	{
+		return;
+	}
+
+	FLatentActionManager& LatentActionManager = World->GetLatentActionManager();
+
+	FMWCountDownAction* FoundAction = LatentActionManager.FindExistingAction<FMWCountDownAction>(LatentInfo.CallbackTarget, LatentInfo.UUID);
+
+	if (CountDownInput == EMWCountdownActionInput::Start)
+	{
+		if (!FoundAction)
+		{
+			LatentActionManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID,
+				new FMWCountDownAction(TotalTime, UpdateInterval, OutRemainingTime, CountDownOutput, LatentInfo)
+			);
+		}
+	}
+
+	if (CountDownInput == EMWCountdownActionInput::Cancel)
+	{
+		if (FoundAction)
+		{
+			FoundAction->CancelAction();
+		}
+	}
 }

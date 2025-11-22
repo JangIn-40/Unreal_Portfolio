@@ -6,6 +6,8 @@
 #include "MWBlueprintFunctionLibrary.h"
 #include "MWGameplayTags.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "Interfaces/PawnUIInterface.h"
+#include "Components/UI/HeroUIComponent.h"
 
 #include "MWDebugHelper.h"
 
@@ -21,11 +23,22 @@ UMWAttributeSet::UMWAttributeSet()
 
 void UMWAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+	if (!CachedPawnUIInterface.IsValid())
+	{
+		CachedPawnUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
+	}
+
+	checkf(CachedPawnUIInterface.IsValid(), TEXT("%s didn't implement IPawnUIInterface"), *Data.Target.GetAvatarActor()->GetActorNameOrLabel());
+
+	UPawnUIComponent* PawnUIInterface = CachedPawnUIInterface->GetPawnUIComponent();
+
 	if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute())
 	{
 		const float NewCurrentHealth = FMath::Clamp(GetCurrentHealth(), 0.f, GetMaxHealth());
 
 		SetCurrentHealth(NewCurrentHealth);
+
+		PawnUIInterface->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 	}
 
 	if (Data.EvaluatedData.Attribute == GetCurrentManaAttribute())
@@ -33,6 +46,11 @@ void UMWAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 		const float NewCurrentMana = FMath::Clamp(GetCurrentMana(), 0.f, GetMaxMana());
 
 		SetCurrentMana(NewCurrentMana);
+
+		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		{
+			HeroUIComponent->OnCurrentManaChanged.Broadcast(GetCurrentMana() / GetMaxMana());
+		}
 	}
 
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
@@ -43,6 +61,8 @@ void UMWAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 		const float NewCurrentHealth = FMath::Clamp(OldHealth - DamageDone, 0.f, GetMaxHealth());
 
 		SetCurrentHealth(NewCurrentHealth);
+
+		PawnUIInterface->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 
 		Debug::Print(TEXT("Final Damage is "), DamageDone);
 		Debug::Print(TEXT("CurrentHealth is "), NewCurrentHealth);

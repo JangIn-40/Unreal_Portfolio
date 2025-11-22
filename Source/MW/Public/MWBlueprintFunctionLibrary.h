@@ -5,25 +5,13 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "GameplayTagContainer.h"
+#include "Types/MWEnumTypes.h"
 #include "MWBlueprintFunctionLibrary.generated.h"
 
 class UMWAbilitySystemComponent;
 class UPawnCombatComponent;
 struct FActiveGameplayEffectHandle;
 
-UENUM()
-enum class EMWValidType : uint8
-{
-	Valid,
-	InValid
-};
-
-UENUM()
-enum class EMWConfirmType : uint8
-{
-	Yes,
-	No
-};
 
 /**
  * 
@@ -65,4 +53,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
 	static bool RemoveActiveGameplayEffect(AActor* InTargetActor, FActiveGameplayEffectHandle EffectHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary", meta = (Latent, WorldContext = "WorldContextObject", LatentInfo = "LatentInfo", ExpandEnumAsExecs = "CountdownInput|CountdownOutput", TotalTime = "1.0", UpdateInterval = "0.1"))
+	static void CountDown(const UObject* WorldContextObject, float TotalTime, float UpdateInterval, float& OutRemainingTime,
+		EMWCountdownActionInput CountdownInput, UPARAM(DisplayName = "Output") EMWCountdownActionOutput& CountdownOutput,
+		FLatentActionInfo LatentInfo);
 };

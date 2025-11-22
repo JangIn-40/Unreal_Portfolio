@@ -15,6 +15,7 @@
 #include "Components/Combat/HeroCombatComponent.h"
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 #include "MWBlueprintFunctionLibrary.h"
+#include "Components/UI/HeroUIComponent.h"
 
 #include "MWDebugHelper.h"
 
@@ -42,6 +43,8 @@ AMWHeroCharacter::AMWHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
 	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
+
+	HeroUIComponent = CreateDefaultSubobject<UHeroUIComponent>(TEXT("HeroUIComponent"));
 }
 
 void AMWHeroCharacter::PossessedBy(AController* NewController)
@@ -85,6 +88,16 @@ void AMWHeroCharacter::BeginPlay()
 UPawnCombatComponent* AMWHeroCharacter::GetPawnCombatComponent() const
 {
 	return HeroCombatComponent;
+}
+
+UPawnUIComponent* AMWHeroCharacter::GetPawnUIComponent() const
+{
+	return HeroUIComponent;
+}
+
+UHeroUIComponent* AMWHeroCharacter::GetHeroUIComponent() const
+{
+	return HeroUIComponent;
 }
 
 void AMWHeroCharacter::OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

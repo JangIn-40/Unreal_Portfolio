@@ -50,6 +50,10 @@ void AMWProjectileBase::OnProjectileHit(UPrimitiveComponent* HitComponent, AActo
 	{
 		BP_OnSpawnProjectileHitCharacterFX(Hit.ImpactPoint);
 	}
+	else if (HitPawn->ActorHasTag(TEXT("Shared.Object.DamageZone")))
+	{
+		return;
+	}
 	else
 	{
 		BP_OnSpawnProjectileHitWolrdFX(Hit.ImpactPoint);

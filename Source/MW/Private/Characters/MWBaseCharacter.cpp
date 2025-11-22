@@ -48,6 +48,11 @@ UPawnCombatComponent* AMWBaseCharacter::GetPawnCombatComponent() const
 	return nullptr;
 }
 
+UPawnUIComponent* AMWBaseCharacter::GetPawnUIComponent() const
+{
+	return nullptr;
+}
+
 void AMWBaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

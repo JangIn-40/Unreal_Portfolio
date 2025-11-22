@@ -5,10 +5,6 @@
 #include "AbilitySystem/Abilities/MWGameplayAbility.h"
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 
-bool FMWHeroAbilitySet::IsValid() const
-{
-	return AbilityToGrant && InputTag.IsValid();
-}
 
 void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {

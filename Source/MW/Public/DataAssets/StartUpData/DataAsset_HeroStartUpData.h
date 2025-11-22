@@ -5,34 +5,14 @@
 #include "CoreMinimal.h"
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "GameplayTagContainer.h"
+#include "Types/MWStructTypes.h"
 #include "DataAsset_HeroStartUpData.generated.h"
 
-
-USTRUCT(BlueprintType)
-struct FMWHeroAbilitySet
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-	FGameplayTag InputTag;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UMWGameplayAbility> AbilityToGrant;
-
-	bool IsValid() const;
-};
-
-USTRUCT(BlueprintType)
-struct FMWHeroSpecialAbilitySets : public FMWHeroAbilitySet
-{
-	GENERATED_BODY()
-
-};
 
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class MW_API UDataAsset_HeroStartUpData : public UDataAsset_StartUpDataBase
 {
 	GENERATED_BODY()
@@ -40,11 +20,13 @@ class MW_API UDataAsset_HeroStartUpData : public UDataAsset_StartUpDataBase
 public:
 	virtual void GiveToAbilitySystemComponent(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel) override;
 
-private:
+protected:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
 	TArray<FMWHeroAbilitySet> HeroDefaultAbilitySets;
 
-	UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
 	TArray<FMWHeroSpecialAbilitySets> HeroSpecialAbilitySets;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "StartUpData")
+	FMWHeroUIData HeroUIData;
 };
