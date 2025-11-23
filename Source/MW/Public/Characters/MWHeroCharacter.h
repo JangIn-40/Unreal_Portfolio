@@ -12,6 +12,7 @@ class UCameraComponent;
 class UDataAsset_InputConfig;
 struct FInputActionValue;
 class UHeroCombatComponent;
+class UMWHeroAnimInstance;
 
 /**
  * 
@@ -24,6 +25,15 @@ class MW_API AMWHeroCharacter : public AMWBaseCharacter
 public:
 	AMWHeroCharacter();
 
+	//~ Begin IPawnCombatInterface Interface.
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface.
+
+	//~ Begin IPawnCombatInterface Interface.
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UHeroUIComponent* GetHeroUIComponent() const override;
+	//~ End IPawnCombatInterface Interface.
+
 protected:
 	//~ Begin APawn Interface.
 	virtual void PossessedBy(AController* NewController) override;
@@ -33,16 +43,8 @@ protected:
 
 	//~ Begin AActor Interface.
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 	//~ End AActor Interface.
-
-	//~ Begin IPawnCombatInterface Interface.
-	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
-	//~ End IPawnCombatInterface Interface.
-
-	//~ Begin IPawnCombatInterface Interface.
-	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-	virtual UHeroUIComponent* GetHeroUIComponent() const override;
-	//~ End IPawnCombatInterface Interface.
 
 	virtual void OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
@@ -83,4 +85,6 @@ private:
 public:
 	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }
 
+private:
+	UMWHeroAnimInstance* CachedHeroAnimInstance = nullptr;
 };

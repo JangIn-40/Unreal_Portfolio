@@ -9,6 +9,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "MWGameplayTags.h"
 #include "Types/MWCountDown.h"
+#include "Characters/MWHeroCharacter.h"
+#include "Components/UI/HeroUIComponent.h"
 
 #include "MWDebugHelper.h"
 
@@ -194,5 +196,54 @@ void UMWBlueprintFunctionLibrary::CountDown(const UObject* WorldContextObject, f
 		{
 			FoundAction->CancelAction();
 		}
+	}
+}
+
+bool UMWBlueprintFunctionLibrary::DoesAbilityRemainingCooldownExistByTag(AActor* InActor, FGameplayTag InCooldownTag)
+{
+	check(InCooldownTag.IsValid() && InActor);
+
+	FGameplayEffectQuery CooldownQuery = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(InCooldownTag.GetSingleTagContainer());
+
+	TArray<TPair<float, float>> TimeRemainingDuration = NativeGetMWASCFromActor(InActor)->GetActiveEffectsTimeRemainingAndDuration(CooldownQuery);
+
+	float RemainingCooldownTime = 0.f;
+
+	if (!TimeRemainingDuration.IsEmpty())
+	{
+		RemainingCooldownTime = TimeRemainingDuration[0].Key;
+	}
+
+	return RemainingCooldownTime > 0.f;
+}
+
+void UMWBlueprintFunctionLibrary::SendAbilityActivateableToUI(AActor* InActor, FGameplayTag InInputTag, FGameplayTag InCooldownTag)
+{
+	check(InActor && InInputTag.IsValid() && InCooldownTag.IsValid());
+
+	if (!DoesAbilityRemainingCooldownExistByTag(InActor, InCooldownTag))
+	{
+		if(AMWHeroCharacter* HeroCharacter = Cast<AMWHeroCharacter>(InActor))
+		{
+			UHeroUIComponent* HeroUIComponent = HeroCharacter->GetHeroUIComponent();
+
+			check(HeroUIComponent);
+
+			HeroUIComponent->OnAbilityActivatable.Broadcast(InInputTag);
+		}
+	}
+}
+
+void UMWBlueprintFunctionLibrary::SendAbilityDisableToUI(AActor* InActor, FGameplayTag InInputTag)
+{
+	check(InActor && InInputTag.IsValid());
+
+	if (AMWHeroCharacter* HeroCharacter = Cast<AMWHeroCharacter>(InActor))
+	{
+		UHeroUIComponent* HeroUIComponent = HeroCharacter->GetHeroUIComponent();
+
+		check(HeroUIComponent);
+
+		HeroUIComponent->OnAbilityDisable.Broadcast(InInputTag);
 	}
 }

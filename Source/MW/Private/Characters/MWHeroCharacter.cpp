@@ -16,11 +16,15 @@
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 #include "MWBlueprintFunctionLibrary.h"
 #include "Components/UI/HeroUIComponent.h"
+#include "AnimInstance/Hero/MWHeroAnimInstance.h"
 
 #include "MWDebugHelper.h"
 
 AMWHeroCharacter::AMWHeroCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = true;
+
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.f);
 
 	bUseControllerRotationPitch = false;
@@ -83,6 +87,27 @@ void AMWHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AMWHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	CachedHeroAnimInstance = Cast<UMWHeroAnimInstance>(GetMesh()->GetAnimInstance());
+
+
+}
+
+void AMWHeroCharacter::Tick(float DeltaSeconds)
+{
+	if (CachedHeroAnimInstance)
+	{
+		if (CachedHeroAnimInstance->GetIsInAir())
+		{
+			UMWBlueprintFunctionLibrary::RemoveGameplayTagIfFound(this, MWGameplayTags::Player_Status_IsGrounded);
+			UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(this, MWGameplayTags::Player_Status_IsFalling);
+		}
+		else if (!UMWBlueprintFunctionLibrary::NativeDoesActorHaveTag(this, MWGameplayTags::Player_Status_OnDoubleJumping))
+		{
+			UMWBlueprintFunctionLibrary::RemoveGameplayTagIfFound(this, MWGameplayTags::Player_Status_IsFalling);
+			UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(this, MWGameplayTags::Player_Status_IsGrounded);
+		}
+	}
 }
 
 UPawnCombatComponent* AMWHeroCharacter::GetPawnCombatComponent() const

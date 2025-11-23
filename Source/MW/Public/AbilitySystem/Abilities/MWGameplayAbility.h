@@ -31,7 +31,7 @@ UCLASS()
 class MW_API UMWGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
-	
+
 protected:
 	//~ Begin UGameplayAbility Interface.
 	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;

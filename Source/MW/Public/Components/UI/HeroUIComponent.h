@@ -13,6 +13,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHeroAbilityIconUpdateDelegate, F
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAbilityCooldownBeginDelegate, FGameplayTag, AbilityInputTag, float, TotalCooldownTime, float, RemainingCooldownTime);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAbilityActivatableDelegate, FGameplayTag, AbilityInputTag);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAbilityDisableDelegate, FGameplayTag, AbilityInputTag);
+
 /**
  * 
  */
@@ -34,4 +38,9 @@ public:
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnAbilityCooldownBeginDelegate OnAbilityCooldownBegin;
 	
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnAbilityActivatableDelegate OnAbilityActivatable;
+
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnAbilityActivatableDelegate OnAbilityDisable;
 };

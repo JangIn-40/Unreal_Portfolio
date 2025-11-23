@@ -20,6 +20,8 @@ public:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
 
+	FORCEINLINE bool GetIsInAir() { return bIsInAir; };
+
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData | References")
 	AMWHeroCharacter* OwningHeroCharacter;

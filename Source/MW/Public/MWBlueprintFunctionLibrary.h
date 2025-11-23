@@ -58,4 +58,14 @@ public:
 	static void CountDown(const UObject* WorldContextObject, float TotalTime, float UpdateInterval, float& OutRemainingTime,
 		EMWCountdownActionInput CountdownInput, UPARAM(DisplayName = "Output") EMWCountdownActionOutput& CountdownOutput,
 		FLatentActionInfo LatentInfo);
+
+	UFUNCTION(BlueprintPure, Category = "MW | FunctionLibrary")
+	static bool DoesAbilityRemainingCooldownExistByTag(AActor* InActor, FGameplayTag InCooldownTag);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
+	static void SendAbilityActivateableToUI(AActor* InActor, FGameplayTag InInputTag, FGameplayTag InCooldownTag);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
+	static void SendAbilityDisableToUI(AActor* InActor, FGameplayTag InInputTag);
+	
 };
