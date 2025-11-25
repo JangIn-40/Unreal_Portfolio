@@ -26,7 +26,7 @@ public:
 template<class UserObject, typename CallbackFunc>
 void UMWInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func)
 {
-	checkf(InInputConfig, TEXT("InInputConfig 데이터 null, 바인딩 진행 불가"));
+	checkf(InInputConfig, TEXT("Input config data asset is null, can not proceed with binding"));
 
 	if (UInputAction* FoundAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
 	{
@@ -37,7 +37,7 @@ void UMWInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InIn
 template<class UserObject, typename CallbackFunc>
 void UMWInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
 {
-	checkf(InInputConfig, TEXT("InInputConfig 데이터 null, 바인딩 진행 불가"));
+	checkf(InInputConfig, TEXT("Input config data asset is null, can not proceed with binding"));
 
 	for (const FMWInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
 	{

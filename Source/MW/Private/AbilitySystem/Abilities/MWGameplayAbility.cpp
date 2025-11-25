@@ -69,7 +69,7 @@ FActiveGameplayEffectHandle UMWGameplayAbility::NativeApplyEffectSpecHandleToTar
 {
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 
-	checkf(TargetASC, TEXT("TargetActor에 ASC가 유효하지 않음"));
+	checkf(TargetASC, TEXT("%s ASC Not Valid"), *TargetActor->GetActorNameOrLabel());
 
 	return GetAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(*InSpecHandle.Data, TargetASC);
 }

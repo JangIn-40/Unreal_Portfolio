@@ -11,6 +11,7 @@
 #include "Types/MWCountDown.h"
 #include "Characters/MWHeroCharacter.h"
 #include "Components/UI/HeroUIComponent.h"
+#include "MWGameInstance.h"
 
 #include "MWDebugHelper.h"
 
@@ -245,5 +246,53 @@ void UMWBlueprintFunctionLibrary::SendAbilityDisableToUI(AActor* InActor, FGamep
 		check(HeroUIComponent);
 
 		HeroUIComponent->OnAbilityDisable.Broadcast(InInputTag);
+	}
+}
+
+UMWGameInstance* UMWBlueprintFunctionLibrary::GetMWGameInstance(const UObject* WorldContextObject)
+{
+	if (GEngine)
+	{
+		if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+		{
+			return World->GetGameInstance<UMWGameInstance>();
+		}
+	}
+
+	return nullptr;
+}
+
+void UMWBlueprintFunctionLibrary::ToggleInputMode(const UObject* WorldContextObject, EMWInputMode InInputMode)
+{
+	APlayerController* PlayerController = nullptr;
+
+	if (GEngine)
+	{
+		if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+		{
+			PlayerController = World->GetFirstPlayerController();
+		}
+	}
+
+	if (!PlayerController)
+	{
+		return;
+	}
+
+	FInputModeGameOnly GameOnly;
+	FInputModeUIOnly UIOnly;
+
+	switch (InInputMode)
+	{
+	case EMWInputMode::GameOnly:
+		PlayerController->SetInputMode(GameOnly);
+		PlayerController->bShowMouseCursor = false;
+		break;
+
+	case EMWInputMode::UIOnly:
+		PlayerController->SetInputMode(UIOnly);
+		PlayerController->bShowMouseCursor = true;
+		break;
+
 	}
 }

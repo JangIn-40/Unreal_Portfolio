@@ -66,7 +66,7 @@ void AMWHeroCharacter::PossessedBy(AController* NewController)
 
 void AMWHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	checkf(InputConfigDataAsset, TEXT("Input Config Data Asset에 유효한 에셋 할당 안함"));
+	checkf(InputConfigDataAsset, TEXT("Forgot to assign a valid data asset Input Config"));
 
 	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
 
@@ -89,7 +89,6 @@ void AMWHeroCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	CachedHeroAnimInstance = Cast<UMWHeroAnimInstance>(GetMesh()->GetAnimInstance());
-
 
 }
 

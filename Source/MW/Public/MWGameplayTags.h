@@ -34,6 +34,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_IsFalling);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_IsGrounded);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_OnDoubleJumping);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_LowMana);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_ForcePush);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_DoubleJump);
@@ -52,6 +53,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_UnderAttack);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_DamageZone_Activating);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_AttackWarning);
 
 	/* Shared Tags */
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_HitReact);
@@ -78,5 +80,10 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_Death);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_Stun);
 
+	/* GameData Tags */
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_Level_SurvivalGameModeMap);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_Level_MainMenuMap);
+
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_SaveGame_Slot_1);
 }
 

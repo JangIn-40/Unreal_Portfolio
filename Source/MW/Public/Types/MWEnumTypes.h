@@ -28,3 +28,21 @@ enum class EMWCountdownActionOutput : uint8
 	Completed,
 	Cancelled
 };
+
+UENUM(BlueprintType)
+enum class EMWSurvivalGameModeState : uint8
+{
+	WaitSpawnNewWave,
+	SpawningNewWave,
+	InProgress,
+	WaveCompleted,
+	AllWavesDone,
+	PlayerDied
+};
+
+UENUM(BlueprintType)
+enum class EMWInputMode : uint8
+{
+	GameOnly,
+	UIOnly
+};

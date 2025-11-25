@@ -15,7 +15,8 @@ public class MW : ModuleRules
             "GameplayAbilities", "GameplayTags", "GameplayTasks", 
 			"AnimGraphRuntime",
             "MotionWarping",
-			"NavigationSystem"
+			"NavigationSystem",
+			"MoviePlayer",
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

@@ -33,6 +33,7 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_IsFalling, "Player.Status.IsFalling");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_IsGrounded, "Player.Status.IsGrounded");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_OnDoubleJumping, "Player.Status.OnDoubleJumping");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LowMana, "Player.Status.LowMana");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_ForcePush, "Player.Cooldown.SpecialAbility.ForcePush");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_DoubleJump, "Player.Cooldown.SpecialAbility.DoubleJump");
@@ -51,6 +52,7 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Strafing, "Enemy.Status.Strafing");
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_UnderAttack, "Enemy.Status.UnderAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_DamageZone_Activating, "Enemy.Status.DamageZone.Activating");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_AttackWarning, "Enemy.Status.AttackWarning");
 
 	/* Shared Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact, "Shared.Ability.HitReact");
@@ -76,4 +78,10 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_HitReact_Left, "Shared.Status.HitReact.Left");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Death, "Shared.Status.Death");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Stun, "Shared.Status.Stun");
+
+	/* GameData Tags */
+	UE_DEFINE_GAMEPLAY_TAG(GameData_Level_SurvivalGameModeMap, "GameData.Level.SurvivalGameModeMap");
+	UE_DEFINE_GAMEPLAY_TAG(GameData_Level_MainMenuMap, "GameData.Level.MainMenuMap");
+
+	UE_DEFINE_GAMEPLAY_TAG(GameData_SaveGame_Slot_1, "GameData.SaveGame.Slot.1");
 }

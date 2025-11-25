@@ -14,4 +14,6 @@ class MW_API AMWBaseGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	AMWBaseGameMode();
 };

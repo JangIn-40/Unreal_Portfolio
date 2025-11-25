@@ -11,7 +11,7 @@
 class UMWAbilitySystemComponent;
 class UPawnCombatComponent;
 struct FActiveGameplayEffectHandle;
-
+class UMWGameInstance;
 
 /**
  * 
@@ -67,5 +67,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
 	static void SendAbilityDisableToUI(AActor* InActor, FGameplayTag InInputTag);
+
+	UFUNCTION(BlueprintPure, Category = "MW | FunctionLibrary", meta = (WorldContext = "WorldContextObject"))
+	static UMWGameInstance* GetMWGameInstance(const UObject* WorldContextObject);
 	
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary", meta = (WorldContext = "WorldContextObject"))
+	static void ToggleInputMode(const UObject* WorldContextObject, EMWInputMode InInputMode);
+
 };

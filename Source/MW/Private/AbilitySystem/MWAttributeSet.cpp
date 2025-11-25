@@ -47,6 +47,15 @@ void UMWAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 
 		SetCurrentMana(NewCurrentMana);
 
+		if (GetCurrentMana() > 40.f)
+		{
+			UMWBlueprintFunctionLibrary::RemoveGameplayTagIfFound(Data.Target.GetAvatarActor(), MWGameplayTags::Player_Status_LowMana);
+		}
+		else
+		{
+			UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(Data.Target.GetAvatarActor(), MWGameplayTags::Player_Status_LowMana);
+		}
+
 		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
 		{
 			HeroUIComponent->OnCurrentManaChanged.Broadcast(GetCurrentMana() / GetMaxMana());

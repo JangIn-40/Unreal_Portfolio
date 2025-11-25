@@ -5,6 +5,8 @@
 #include "Interfaces/PawnUIInterface.h"
 #include "Components/UI/HeroUIComponent.h"
 
+#include "MWDebugHelper.h"
+
 void UMWWidgetBase::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
