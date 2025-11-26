@@ -5,9 +5,9 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "MWGameplayTags.h"
 
-void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
+void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor, UPrimitiveComponent* OverlappedComponent)
 {
-    Super::OnHitTargetActor(HitActor);
+    Super::OnHitTargetActor(HitActor, OverlappedComponent);
 
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
 		GetOwningPawn(),

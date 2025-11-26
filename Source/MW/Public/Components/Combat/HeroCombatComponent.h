@@ -15,6 +15,6 @@ class MW_API UHeroCombatComponent : public UPawnCombatComponent
 	GENERATED_BODY()
 	
 public:
-	virtual void OnHitTargetActor(AActor* HitActor) override;
+	virtual void OnHitTargetActor(AActor* HitActor, UPrimitiveComponent* OverlappedComponent) override;
 	virtual void OnWeaponPulledTargetActor(AActor* InteractedActor) override;
 };

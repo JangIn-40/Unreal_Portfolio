@@ -109,3 +109,36 @@ void UMWGameplayAbility::ApplyEffectSpecHandleToHitResult(const FGameplayEffectS
 		}
 	}
 }
+
+void UMWGameplayAbility::SendGameplayEventToHitResult(const TArray<FHitResult> InHitResults, FGameplayTag InEventTag, float InEventMagnitude, bool bIsTargetHostile)
+{
+	if (InHitResults.IsEmpty())
+	{
+		return;
+	}
+
+	APawn* OwningPawn = CastChecked<APawn>(GetAvatarActorFromActorInfo());
+
+	for (const FHitResult& HitResult : InHitResults)
+	{
+		if (APawn* HitPawn = Cast<APawn>(HitResult.GetActor()))
+		{
+			FGameplayEventData Data;
+			Data.Instigator = OwningPawn;
+			Data.Target = HitPawn;
+			Data.EventMagnitude = InEventMagnitude;
+
+			if (bIsTargetHostile)
+			{
+				if (UMWBlueprintFunctionLibrary::IsTargetPawnHostile(OwningPawn, HitPawn))
+				{
+					UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitPawn, InEventTag, Data);
+				}
+			}
+			else
+			{
+				UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitPawn, InEventTag, Data);
+			}
+		}
+	}
+}

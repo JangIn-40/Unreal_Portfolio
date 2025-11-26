@@ -130,7 +130,7 @@ void AMWHeroCharacter::OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* Ove
 	{
 		if (UMWBlueprintFunctionLibrary::IsTargetPawnHostile(this, HitPawn))
 		{
-			HeroCombatComponent->OnHitTargetActor(HitPawn);
+			HeroCombatComponent->OnHitTargetActor(HitPawn, OverlappedComponent);
 		}
 	}
 }

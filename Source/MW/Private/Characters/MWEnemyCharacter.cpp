@@ -73,7 +73,7 @@ void AMWEnemyCharacter::OnWeaponCollisionBoxBeginOverlap(UPrimitiveComponent* Ov
 	{
 		if (UMWBlueprintFunctionLibrary::IsTargetPawnHostile(this, HitActor))
 		{
-			EnemyCombatComponent->OnHitTargetActor(HitActor);
+			EnemyCombatComponent->OnHitTargetActor(HitActor, OverlappedComponent);
 		}
 	}
 }

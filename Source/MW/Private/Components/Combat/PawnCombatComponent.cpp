@@ -6,6 +6,10 @@
 #include "Components/BoxComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "MWGameplayTags.h"
+#include "Particles/ParticleSystem.h"
+#include "Kismet/GameplayStatics.h"
+
+#include "MWDebugHelper.h"
 
 void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamagetype ToggleDamageType)
 {
@@ -38,12 +42,14 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDama
 	}
 }
 
-void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
+void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor, UPrimitiveComponent* OverlappedComponent)
 {
 	if (OverlappedActors.Contains(HitActor))
 	{
 		return;
 	}
+
+	SpawnMeleeHitImpactFXSound(HitActor, OverlappedComponent);
 
 	OverlappedActors.AddUnique(HitActor);
 
@@ -61,4 +67,50 @@ void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
 void UPawnCombatComponent::OnWeaponPulledTargetActor(AActor* InteractedActor)
 {
 
+}
+
+void UPawnCombatComponent::SpawnMeleeHitImpactFXSound(AActor* HitActor, UPrimitiveComponent* OverlappedComponent)
+{
+	if (!MeleeHitImpactFX && !MeleeHitSound)
+	{
+		return;
+	}
+
+	FVector Start = OverlappedComponent->GetComponentLocation();
+
+	FVector End = (HitActor->GetActorLocation() - Start) + HitActor->GetActorLocation();
+
+	TArray<FHitResult> HitResults;
+
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_Pawn));
+
+	UKismetSystemLibrary::LineTraceMultiForObjects(
+		GetOwner(),
+		Start,
+		End,
+		ObjectTypes,
+		false,
+		OverlappedActors,
+		bDebugLineTrace ? EDrawDebugTrace::Persistent : EDrawDebugTrace::None,
+		HitResults,
+		true
+	);
+		
+	for (FHitResult& HitResult : HitResults)
+	{
+		if (HitActor == HitResult.GetActor())
+		{
+			if (MeleeHitImpactFX)
+			{
+				UGameplayStatics::SpawnEmitterAtLocation(this, MeleeHitImpactFX, HitResult.ImpactPoint, FRotator::ZeroRotator, true);
+			}			
+
+			if (MeleeHitSound)
+			{
+				UGameplayStatics::PlaySoundAtLocation(this, MeleeHitSound, HitResult.ImpactPoint);
+			}
+		}
+	}
+	
 }

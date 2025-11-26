@@ -60,6 +60,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "MW | Ability")
 	void ApplyEffectSpecHandleToHitResult(const FGameplayEffectSpecHandle& InSpecHandle, const TArray<FHitResult> InHitResults);
 
+	UFUNCTION(BlueprintCallable, Category = "MW | Ability", meta = (EventMagnitude = "0.f", bIsTargetHostile = "true"))
+	void SendGameplayEventToHitResult(const TArray<FHitResult> InHitResults, FGameplayTag InEventTag, float EventMagnitude, bool bIsTargetHostile);
+
 private:
 	TWeakObjectPtr<AMWBaseCharacter> CachedMWCharacter;
 };
