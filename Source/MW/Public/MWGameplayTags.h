@@ -85,5 +85,9 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_Level_MainMenuMap);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_SaveGame_Slot_1);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_SaveGame_Slot_2);
+
+	/* GameplayCue Tags */
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameplayCue_FX_LevelUp);
 }
 

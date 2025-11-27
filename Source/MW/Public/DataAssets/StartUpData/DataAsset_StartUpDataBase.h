@@ -21,6 +21,8 @@ class MW_API UDataAsset_StartUpDataBase : public UDataAsset
 public:
 	virtual void GiveToAbilitySystemComponent(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1);
 
+	void SetCharacterAttributeByLevel(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel);
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
 	TArray<TSubclassOf<UMWGameplayAbility>> ActivateOnGivenAbilities;

@@ -13,6 +13,11 @@ void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UMWAbilitySystemCo
 	GrantAbilities(ActivateOnGivenAbilities, InASCToGive, ApplyLevel);
 	GrantAbilities(ReactiveAbilities, InASCToGive, ApplyLevel);
 
+	SetCharacterAttributeByLevel(InASCToGive, ApplyLevel);
+}
+
+void UDataAsset_StartUpDataBase::SetCharacterAttributeByLevel(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
+{
 	if (!StartUpGameplayEffects.IsEmpty())
 	{
 		for (const TSubclassOf<UGameplayEffect>& EffectClass : StartUpGameplayEffects)

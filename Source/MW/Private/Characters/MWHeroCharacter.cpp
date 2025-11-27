@@ -11,12 +11,13 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/MWInputComponent.h"
 #include "MWGameplayTags.h"
-#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
+#include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 #include "Components/Combat/HeroCombatComponent.h"
 #include "AbilitySystem/MWAbilitySystemComponent.h"
 #include "MWBlueprintFunctionLibrary.h"
 #include "Components/UI/HeroUIComponent.h"
 #include "AnimInstance/Hero/MWHeroAnimInstance.h"
+#include "GameModes/MWBaseGameMode.h"
 
 #include "MWDebugHelper.h"
 
@@ -55,11 +56,18 @@ void AMWHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
+	int32 AbilityLevel = 1;
+
+	if (AMWBaseGameMode* BaseGameMode = GetWorld()->GetAuthGameMode<AMWBaseGameMode>())
+	{
+		AbilityLevel = BaseGameMode->GetCurrentGameWave();
+	}
+
 	if (!CharacterStartUpData.IsNull())
 	{
 		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
 		{
-			LoadedData->GiveToAbilitySystemComponent(MWAbilitySystemComponent);
+			LoadedData->GiveToAbilitySystemComponent(MWAbilitySystemComponent, AbilityLevel);
 		}
 	}
 }
@@ -187,4 +195,22 @@ void AMWHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
 void AMWHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 {
 	MWAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
+}
+
+void AMWHeroCharacter::LevelUp(int32 NewLevel)
+{
+	for (FGameplayAbilitySpec& AbilitySpec : MWAbilitySystemComponent->GetActivatableAbilities())
+	{
+		AbilitySpec.Level = NewLevel;
+	}
+
+	if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+	{
+		LoadedData->SetCharacterAttributeByLevel(MWAbilitySystemComponent, NewLevel);
+	}
+
+	FGameplayCueParameters CueParam;
+	CueParam.TargetAttachComponent = GetMesh();
+
+	MWAbilitySystemComponent->ExecuteGameplayCue(MWGameplayTags::GameplayCue_FX_LevelUp, CueParam);
 }

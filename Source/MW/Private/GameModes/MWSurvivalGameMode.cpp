@@ -8,12 +8,27 @@
 #include "Engine/TargetPoint.h"
 #include "NavigationSystem.h"
 #include "MWBlueprintFunctionLibrary.h"
+#include "Characters/MWHeroCharacter.h"
 
 #include "MWDebugHelper.h"
 
 void AMWSurvivalGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
+
+	EMWGameDfficulty SavedGameDifficulty;
+
+	if (UMWBlueprintFunctionLibrary::TryLoadSavedCurrentGameDifficulty(SavedGameDifficulty))
+	{
+		CurrentGameDfficulty = SavedGameDifficulty;
+	}
+
+	int32 SavedCurrentWaveCount;
+
+	if (UMWBlueprintFunctionLibrary::TryLoadSavedCurrentGameWave(SavedCurrentWaveCount))
+	{
+		CurrentWaveCount = SavedCurrentWaveCount;
+	}
 }
 
 void AMWSurvivalGameMode::BeginPlay()
@@ -24,7 +39,7 @@ void AMWSurvivalGameMode::BeginPlay()
 
 	SetCurrentSurvivalGameModeState(EMWSurvivalGameModeState::WaitSpawnNewWave);
 
-	TotalWavesToSpawn = EnemyWaveSpawnerDataTable->GetRowNames().Num() - (CurrentWaveCount - 1);
+	TotalWavesToSpawn = EnemyWaveSpawnerDataTable->GetRowNames().Num();
 
 	PreLoadNextWaveEnemies();
 }
@@ -75,6 +90,11 @@ void AMWSurvivalGameMode::Tick(float DeltaTime)
 			{
 				SetCurrentSurvivalGameModeState(EMWSurvivalGameModeState::WaitSpawnNewWave);
 				PreLoadNextWaveEnemies();
+
+				if(AMWHeroCharacter* HeroCharacter = Cast<AMWHeroCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0)))
+				{
+					HeroCharacter->LevelUp(CurrentWaveCount);
+				}
 			}
 		}
 	}

@@ -10,6 +10,8 @@
 #include "Components/UI/EnemyUIComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Widgets/MWWidgetBase.h"
+#include "Types/MWEnumTypes.h"
+#include "GameModes/MWBaseGameMode.h"
 
 #include "MWDebugHelper.h"
 
@@ -85,14 +87,42 @@ void AMWEnemyCharacter::InitEnemyStartUpData()
 		return;
 	}
 
+	int32 AbilityLevel = 1;
+
+	if (AMWBaseGameMode* BaseGameMode = GetWorld()->GetAuthGameMode<AMWBaseGameMode>())
+	{
+		switch (BaseGameMode->GetCurrentGameDifficulty())
+		{
+		case EMWGameDfficulty::Easy:
+			AbilityLevel = 1;
+			break;
+
+		case EMWGameDfficulty::Normal:
+			AbilityLevel = 2;
+			break;
+
+		case EMWGameDfficulty::Hard:
+			AbilityLevel = 3;
+			break;
+
+		case EMWGameDfficulty::VeryHard:
+			AbilityLevel = 4;
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+
 	UAssetManager::GetStreamableManager().RequestAsyncLoad(
 		CharacterStartUpData.ToSoftObjectPath(),
 		FStreamableDelegate::CreateLambda(
-			[this]()
+			[this, AbilityLevel]()
 			{
 				if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.Get())
 				{
-					CharacterStartUpData->GiveToAbilitySystemComponent(MWAbilitySystemComponent);
+					CharacterStartUpData->GiveToAbilitySystemComponent(MWAbilitySystemComponent, AbilityLevel);
 
 					Debug::Print("Load Completed");
 				}

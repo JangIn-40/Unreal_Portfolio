@@ -87,4 +87,7 @@ public:
 
 private:
 	UMWHeroAnimInstance* CachedHeroAnimInstance = nullptr;
+
+public:
+	void LevelUp(int32 NewLevel);
 };

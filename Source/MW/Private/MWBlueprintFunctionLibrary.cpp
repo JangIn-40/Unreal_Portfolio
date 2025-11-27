@@ -12,6 +12,9 @@
 #include "Characters/MWHeroCharacter.h"
 #include "Components/UI/HeroUIComponent.h"
 #include "MWGameInstance.h"
+#include "SaveGame/MWSaveGame.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameModes/MWBaseGameMode.h"
 
 #include "MWDebugHelper.h"
 
@@ -295,4 +298,89 @@ void UMWBlueprintFunctionLibrary::ToggleInputMode(const UObject* WorldContextObj
 		break;
 
 	}
+}
+
+void UMWBlueprintFunctionLibrary::SaveCurrentGameDifficulty(EMWGameDfficulty InDifficultyToSave)
+{
+	USaveGame* SaveGameObject = UGameplayStatics::CreateSaveGameObject(UMWSaveGame::StaticClass());
+
+	if (UMWSaveGame* MWSaveGameObject = Cast<UMWSaveGame>(SaveGameObject))
+	{
+		MWSaveGameObject->SaveCurrentGameDifficulty = InDifficultyToSave;
+
+		const bool bWasSaved = UGameplayStatics::SaveGameToSlot(MWSaveGameObject, MWGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0);
+
+		Debug::Print(bWasSaved ? TEXT("Saved") : TEXT("Not Saved"));
+	}
+}
+
+bool UMWBlueprintFunctionLibrary::TryLoadSavedCurrentGameDifficulty(EMWGameDfficulty& OutSavedDifficulty)
+{
+	if (UGameplayStatics::DoesSaveGameExist(MWGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0))
+	{
+		USaveGame* SaveGameObject = UGameplayStatics::LoadGameFromSlot(MWGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0);
+
+		if (UMWSaveGame* MWSaveGameObject = Cast<UMWSaveGame>(SaveGameObject))
+		{
+			OutSavedDifficulty = MWSaveGameObject->SaveCurrentGameDifficulty;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void UMWBlueprintFunctionLibrary::SaveCurrentGameWave(UObject* WorldContextObject)
+{
+	USaveGame* SaveGameObject = UGameplayStatics::CreateSaveGameObject(UMWSaveGame::StaticClass());
+
+	if (GEngine)
+	{
+		if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+		{
+			if (AMWBaseGameMode* BaseGameMode = World->GetAuthGameMode<AMWBaseGameMode>())
+			{
+				if (UMWSaveGame* MWSaveGameObject = Cast<UMWSaveGame>(SaveGameObject))
+				{
+					MWSaveGameObject->SavedCurrentWaveCount = BaseGameMode->GetCurrentGameWave();
+
+					const bool bWasSaved = UGameplayStatics::SaveGameToSlot(MWSaveGameObject, MWGameplayTags::GameData_SaveGame_Slot_2.GetTag().ToString(), 0);
+
+					Debug::Print(bWasSaved ? TEXT("Saved") : TEXT("Not Saved"));
+				}
+			}
+		}
+	}
+
+
+}
+
+bool UMWBlueprintFunctionLibrary::TryLoadSavedCurrentGameWave(int32& OutSavedCurrentWave)
+{
+	if (UGameplayStatics::DoesSaveGameExist(MWGameplayTags::GameData_SaveGame_Slot_2.GetTag().ToString(), 0))
+	{
+		USaveGame* SaveGameObject = UGameplayStatics::LoadGameFromSlot(MWGameplayTags::GameData_SaveGame_Slot_2.GetTag().ToString(), 0);
+
+		if (UMWSaveGame* MWSaveGameObject = Cast<UMWSaveGame>(SaveGameObject))
+		{
+			OutSavedCurrentWave = MWSaveGameObject->SavedCurrentWaveCount;
+
+			Debug::Print(TEXT("Loading Successful"));
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool UMWBlueprintFunctionLibrary::TryDeleteSavedGameInSlot(FGameplayTag InGameSlotTag, int32 UserIndex)
+{
+	return UGameplayStatics::DeleteGameInSlot(InGameSlotTag.ToString(), UserIndex);
+}
+
+bool UMWBlueprintFunctionLibrary::DoesSaveCurrentWaveExist(int32 UserIndex)
+{
+	return UGameplayStatics::DoesSaveGameExist(MWGameplayTags::GameData_SaveGame_Slot_2.GetTag().ToString(), UserIndex);
 }

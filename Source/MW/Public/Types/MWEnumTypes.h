@@ -46,3 +46,12 @@ enum class EMWInputMode : uint8
 	GameOnly,
 	UIOnly
 };
+
+UENUM(BlueprintType)
+enum class EMWGameDfficulty : uint8
+{
+	Easy,
+	Normal,
+	Hard,
+	VeryHard	
+};

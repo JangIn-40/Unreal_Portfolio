@@ -4,7 +4,9 @@
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 #include "AbilitySystem/Abilities/MWGameplayAbility.h"
 #include "AbilitySystem/MWAbilitySystemComponent.h"
+#include "MWGameplayTags.h"
 
+#include "MWDebugHelper.h"
 
 void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {
@@ -34,3 +36,4 @@ void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UMWAbilitySystemCo
 		InASCToGive->GiveAbility(Spec);
 	}
 }
+

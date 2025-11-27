@@ -74,4 +74,21 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary", meta = (WorldContext = "WorldContextObject"))
 	static void ToggleInputMode(const UObject* WorldContextObject, EMWInputMode InInputMode);
 
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
+	static void SaveCurrentGameDifficulty(EMWGameDfficulty InDifficultyToSave);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
+	static bool TryLoadSavedCurrentGameDifficulty(EMWGameDfficulty& OutSavedDifficulty);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary", meta = (WorldContext = "WorldContextObject"))
+	static void SaveCurrentGameWave(UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary")
+	static bool TryLoadSavedCurrentGameWave(int32& OutSavedCurrentWave);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary", meta = (UserIndex = "0"))
+	static bool TryDeleteSavedGameInSlot(FGameplayTag InGameSlotTag, int32 UserIndex);
+
+	UFUNCTION(BlueprintCallable, Category = "MW | FunctionLibrary", meta = (UserIndex = "0"))
+	static bool DoesSaveCurrentWaveExist(int32 UserIndex);
 };
