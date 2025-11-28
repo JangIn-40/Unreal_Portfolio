@@ -26,6 +26,8 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_SaveAttack, "Player.Event.SaveAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ResetAttack, "Player.Event.ResetAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_HitPause, "Player.Event.HitPause");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ComboWindow_Start, "Player.Event.ComboWindow.Start");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ComboWindow_End, "Player.Event.ComboWindow.End");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_ComboCount, "Player.SetByCaller.ComboCount");
 
@@ -34,6 +36,7 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_IsGrounded, "Player.Status.IsGrounded");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_OnDoubleJumping, "Player.Status.OnDoubleJumping");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LowMana, "Player.Status.LowMana");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_ComboWindow_Start, "Player.Status.ComboWindow.Start");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_ForcePush, "Player.Cooldown.SpecialAbility.ForcePush");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_DoubleJump, "Player.Cooldown.SpecialAbility.DoubleJump");

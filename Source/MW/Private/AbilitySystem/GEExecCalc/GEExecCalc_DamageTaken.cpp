@@ -43,7 +43,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 	float SourceAttackPower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetMWDamageCapture().AttackPowerDef, EvaluateParameters, SourceAttackPower);
 
-	int32 ComboCount = 0.f;
+	int32 ComboCount = -1;
 	float SpecialAbilityDamage = 0.f;
 
 	for (const TPair<FGameplayTag, float>& TagMagnitude : EffectSpec.SetByCallerTagMagnitudes)
@@ -63,11 +63,11 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 
 	float FinalDamage = 0.f;
 
-	if (ComboCount != 0)
+	if (ComboCount != -1)
 	{
-		const float DamageIncreasePercent = (ComboCount - 1) * 0.15f + 1.f;
+		const float DamageIncreasePercent = ComboCount * 0.05f + 1.f;
 
-		SourceAttackPower *= ComboCount;
+		SourceAttackPower *= DamageIncreasePercent;
 	}
 
 	FinalDamage = (SourceAttackPower + SpecialAbilityDamage) / TargetDefensePower;

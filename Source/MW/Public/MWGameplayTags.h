@@ -27,6 +27,8 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_SaveAttack);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_ResetAttack);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_HitPause);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_ComboWindow_Start);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_ComboWindow_End);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_ComboCount);
 
@@ -35,6 +37,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_IsGrounded);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_OnDoubleJumping);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_LowMana);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_ComboWindow_Start);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_ForcePush);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_DoubleJump);

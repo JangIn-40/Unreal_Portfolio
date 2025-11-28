@@ -18,7 +18,7 @@ void UMWAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInpu
 	{
 		if (!AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag)) continue;
 
-		if (UMWBlueprintFunctionLibrary::NativeDoesActorHaveTag(GetOwner(), MWGameplayTags::Player_Status_IsAttacking) && AbilitySpec.IsActive())
+		if (UMWBlueprintFunctionLibrary::NativeDoesActorHaveTag(GetOwner(), MWGameplayTags::Player_Status_ComboWindow_Start) && AbilitySpec.IsActive())
 		{
 			bShouldProceedToNextCombo = true;
 		}
