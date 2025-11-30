@@ -65,7 +65,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 
 	if (ComboCount != -1)
 	{
-		const float DamageIncreasePercent = ComboCount * 0.05f + 1.f;
+		const float DamageIncreasePercent = ComboCount * 0.10f + 1.f;
 
 		SourceAttackPower *= DamageIncreasePercent;
 	}

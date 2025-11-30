@@ -29,7 +29,7 @@ struct FMWHeroSpecialAbilitySets : public FMWHeroAbilitySet
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSoftObjectPtr<UMaterialInterface> SoftAbilityIconMaterial;
+	TObjectPtr<UMaterialInterface> AbilityIconMaterial;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Player.Cooldown"))
 	FGameplayTag AbilityCooldownTag;
@@ -41,7 +41,7 @@ struct FMWHeroUIData
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSoftObjectPtr<UTexture2D> SoftHeroPortraitIconTexture;
+	TObjectPtr<UTexture2D> HeroPortraitIconTexture;
 };
 
 USTRUCT(BlueprintType)

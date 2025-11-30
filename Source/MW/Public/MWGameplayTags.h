@@ -13,6 +13,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_LightAttack);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_SpecialAbility_ForcePush);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_SpecialAbility_Slam);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_SpecialAbility_Ult);
 
 	/* Player Tags */
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light);
@@ -23,6 +24,7 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SpecialAbility_ForcePush);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SpecialAbility_DoubleJump);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SpecialAbility_Slam);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SpecialAbility_Ult);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_SaveAttack);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_ResetAttack);
@@ -38,10 +40,12 @@ namespace MWGameplayTags
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_OnDoubleJumping);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_LowMana);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_ComboWindow_Start);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Activating_Ult);
 
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_ForcePush);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_DoubleJump);
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_Slam);
+	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Cooldown_SpecialAbility_Ult);
 
 	/* Enemy Tags */
 	MW_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Melee);

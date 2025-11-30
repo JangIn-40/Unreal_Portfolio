@@ -71,4 +71,8 @@ private:
 
 	UPROPERTY()
 	TMap<TSoftClassPtr<AMWEnemyCharacter>, UClass*> PreLoadEnemyClassMap;
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "MW | Wave Setting")
+	void AddTargetPointsArray(AActor* InTargetPoint);
 };

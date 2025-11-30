@@ -66,7 +66,7 @@ bool UMWBlueprintFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* T
 
 	if (QueryTeamAgent && TargetTeamAgent)
 	{
-		return QueryTeamAgent->GetGenericTeamId() != TargetTeamAgent->GetGenericTeamId();
+		return (QueryTeamAgent->GetGenericTeamId() % 2) != (TargetTeamAgent->GetGenericTeamId() % 2);
 	}
 
 	return false;

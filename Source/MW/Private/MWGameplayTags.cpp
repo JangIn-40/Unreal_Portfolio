@@ -12,6 +12,7 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack, "InputTag.LightAttack");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_SpecialAbility_ForcePush, "InputTag.SpecialAbility.ForcePush");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_SpecialAbility_Slam, "InputTag.SpecialAbility.Slam");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_SpecialAbility_Ult, "InputTag.SpecialAbility.Ult");
 
 	/* Player Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light, "Player.Ability.Attack.Light");
@@ -22,6 +23,7 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_SpecialAbility_ForcePush, "Player.SpecialAbility.ForcePush");
 	UE_DEFINE_GAMEPLAY_TAG(Player_SpecialAbility_DoubleJump, "Player.SpecialAbility.DoubleJump");
 	UE_DEFINE_GAMEPLAY_TAG(Player_SpecialAbility_Slam, "Player.SpecialAbility.Slam");
+	UE_DEFINE_GAMEPLAY_TAG(Player_SpecialAbility_Ult, "Player.SpecialAbility.Ult");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_SaveAttack, "Player.Event.SaveAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ResetAttack, "Player.Event.ResetAttack");
@@ -37,10 +39,12 @@ namespace MWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_OnDoubleJumping, "Player.Status.OnDoubleJumping");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LowMana, "Player.Status.LowMana");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_ComboWindow_Start, "Player.Status.ComboWindow.Start");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Activating_Ult, "Player.Status.Activating.Ult");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_ForcePush, "Player.Cooldown.SpecialAbility.ForcePush");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_DoubleJump, "Player.Cooldown.SpecialAbility.DoubleJump");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_Slam, "Player.Cooldown.SpecialAbility.Slam");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Cooldown_SpecialAbility_Ult, "Player.Cooldown.SpecialAbility.Ult");
 
 	/* Enemy Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Melee, "Enemy.Ability.Melee");

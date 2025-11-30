@@ -19,6 +19,7 @@ AMWDamageZoneBase::AMWDamageZoneBase()
 
 	DamageZoneCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("DamageZoneCollisionBox"));
 	SetRootComponent(DamageZoneCollisionBox);
+	DamageZoneCollisionBox->SetCollisionProfileName(TEXT("MWWeapon"));
 	DamageZoneCollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	DamageZoneCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnDamageZoneBeginOverlap);
 	DamageZoneCollisionBox->OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnDamageZoneEndOverlap);
@@ -67,10 +68,8 @@ void AMWDamageZoneBase::OnDamageZoneEndOverlap(UPrimitiveComponent* OverlappedCo
 	OverlappedActors.Remove(OtherActor);
 
 	APawn* OverlapPawn = Cast<APawn>(OtherActor);
-	if (OverlapPawn && UMWBlueprintFunctionLibrary::IsTargetPawnHostile(GetInstigator(), OverlapPawn))
-	{
-		UMWBlueprintFunctionLibrary::RemoveActiveGameplayEffect(OtherActor, GameplayEffectHandle);
-	}
+
+	UMWBlueprintFunctionLibrary::RemoveActiveGameplayEffect(OtherActor, GameplayEffectHandle);
 }
 
 void AMWDamageZoneBase::HandleApplyDamage(APawn* InOverlappedPawn, const FGameplayEventData& InPayload)

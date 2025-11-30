@@ -12,6 +12,7 @@
 #include "Widgets/MWWidgetBase.h"
 #include "Types/MWEnumTypes.h"
 #include "GameModes/MWBaseGameMode.h"
+#include "Components/CapsuleComponent.h"
 
 #include "MWDebugHelper.h"
 
@@ -28,6 +29,8 @@ AMWEnemyCharacter::AMWEnemyCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 180.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 300.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
 

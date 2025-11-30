@@ -17,6 +17,7 @@ AMWProjectileBase::AMWProjectileBase()
 
 	ProjectileCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("ProjectileCollisionBox"));
 	SetRootComponent(ProjectileCollisionBox);
+	ProjectileCollisionBox->SetCollisionProfileName(TEXT("MWProjectile"));
 	ProjectileCollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	ProjectileCollisionBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
 	ProjectileCollisionBox->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Block);
@@ -32,7 +33,7 @@ AMWProjectileBase::AMWProjectileBase()
 	ProjectileMovementComp->Velocity = FVector(1.f, 0.f, 0.f);
 	ProjectileMovementComp->ProjectileGravityScale = 0.f;
 
-	InitialLifeSpan = 4.f;
+	InitialLifeSpan = 7.f;
 }
 
 // Called when the game starts or when spawned

@@ -29,6 +29,8 @@ void AMWSurvivalGameMode::InitGame(const FString& MapName, const FString& Option
 	{
 		CurrentWaveCount = SavedCurrentWaveCount;
 	}
+
+	TargetPointsArray.Empty();
 }
 
 void AMWSurvivalGameMode::BeginPlay()
@@ -153,12 +155,7 @@ FMWEnemyWaveSpawnerTableRow* AMWSurvivalGameMode::GetCurrentWaveSpawnerTableRow(
 
 int32 AMWSurvivalGameMode::TrySpawnWaveEnemies()
 {
-	if (TargetPointsArray.IsEmpty())
-	{
-		UGameplayStatics::GetAllActorsOfClass(this, ATargetPoint::StaticClass(), TargetPointsArray);
-	}
-	
-	checkf(!TargetPointsArray.IsEmpty(), TEXT("No valid target point found in level : %s for spawning enemies"), *GetWorld()->GetName());
+	checkf(!TargetPointsArray.IsEmpty(), TEXT("No valid target point found in level : %s for spawning enemies, Use Bleuprint TargetPoint"), *GetWorld()->GetName());
 
 	uint32 EnemiesSpawnedThisTime = 0;
 
@@ -224,4 +221,9 @@ void AMWSurvivalGameMode::OnEnemyDestroyed(AActor* DestroyedActor)
 
 		SetCurrentSurvivalGameModeState(EMWSurvivalGameModeState::WaveCompleted);
 	}
+}
+
+void AMWSurvivalGameMode::AddTargetPointsArray(AActor* InTargetPoint)
+{
+	TargetPointsArray.Emplace(InTargetPoint);
 }

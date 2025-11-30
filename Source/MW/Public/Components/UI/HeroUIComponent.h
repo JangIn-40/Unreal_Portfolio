@@ -7,9 +7,9 @@
 #include "GameplayTagContainer.h"
 #include "HeroUIComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHeroPortraitIconUpdateDelegate, TSoftObjectPtr<UTexture2D>, SoftHeroPortraitIcon);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHeroPortraitIconUpdateDelegate, UTexture2D*, HeroPortraitIcon);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHeroAbilityIconUpdateDelegate, FGameplayTag, AbilityInputTag, TSoftObjectPtr<UMaterialInterface>, SoftHeroAbilityIconMaterial);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHeroAbilityIconUpdateDelegate, FGameplayTag, AbilityInputTag, UMaterialInterface*, HeroAbilityIconMaterial);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAbilityCooldownBeginDelegate, FGameplayTag, AbilityInputTag, float, TotalCooldownTime, float, RemainingCooldownTime);
 

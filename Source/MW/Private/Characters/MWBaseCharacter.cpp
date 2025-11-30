@@ -7,6 +7,7 @@
 #include "Components/BoxComponent.h"
 #include "MotionWarpingComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AMWBaseCharacter::AMWBaseCharacter()
@@ -17,6 +18,8 @@ AMWBaseCharacter::AMWBaseCharacter()
 
 	GetMesh()->bReceivesDecals = false;
 
+	GetCapsuleComponent()->SetCollisionProfileName(TEXT("MWCapsule"));
+
 	MWAbilitySystemComponent = CreateDefaultSubobject<UMWAbilitySystemComponent>(TEXT("MWAbilitySystemComponent"));
 
 	MWAttributeSet = CreateDefaultSubobject<UMWAttributeSet>(TEXT("MWAttributeSet"));
@@ -26,12 +29,14 @@ AMWBaseCharacter::AMWBaseCharacter()
 	LeftWeaponCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("LeftWeaponCollisionBox"));
 	LeftWeaponCollisionBox->SetupAttachment(GetMesh());
 	LeftWeaponCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	LeftWeaponCollisionBox->SetCollisionProfileName(TEXT("MWWeapon"));
 	LeftWeaponCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxBeginOverlap);
 	LeftWeaponCollisionBox->OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxEndOverlap);
 
 	RightWeaponCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("RightWeaponCollisionBox"));
 	RightWeaponCollisionBox->SetupAttachment(GetMesh());
 	RightWeaponCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	RightWeaponCollisionBox->SetCollisionProfileName(TEXT("MWWeapon"));
 	RightWeaponCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxBeginOverlap);
 	RightWeaponCollisionBox->OnComponentEndOverlap.AddUniqueDynamic(this, &ThisClass::OnWeaponCollisionBoxEndOverlap);
 
