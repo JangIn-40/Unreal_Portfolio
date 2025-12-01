@@ -102,9 +102,9 @@ void AMWHeroCharacter::BeginPlay()
 
 void AMWHeroCharacter::Tick(float DeltaSeconds)
 {
-	if (CachedHeroAnimInstance)
-	{
-		if (CachedHeroAnimInstance->GetIsInAir())
+	//if (CachedHeroAnimInstance)
+	//{
+		if (GetCharacterMovement()->IsFalling()/*CachedHeroAnimInstance->GetIsInAir()*/)
 		{
 			UMWBlueprintFunctionLibrary::RemoveGameplayTagIfFound(this, MWGameplayTags::Player_Status_IsGrounded);
 			UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(this, MWGameplayTags::Player_Status_IsFalling);
@@ -114,7 +114,7 @@ void AMWHeroCharacter::Tick(float DeltaSeconds)
 			UMWBlueprintFunctionLibrary::RemoveGameplayTagIfFound(this, MWGameplayTags::Player_Status_IsFalling);
 			UMWBlueprintFunctionLibrary::AddGameplayTagIfNone(this, MWGameplayTags::Player_Status_IsGrounded);
 		}
-	}
+	//}
 }
 
 UPawnCombatComponent* AMWHeroCharacter::GetPawnCombatComponent() const
