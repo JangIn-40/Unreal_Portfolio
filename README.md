@@ -1,13 +1,15 @@
 ## 1. 프로젝트 소개
 - GAS를 활용한 언리얼 엔진 포트폴리오
+- 개발 목적 : GAS라는 표준화된 구조를 사용해보고 싶었습니다.
 - 제작 기간 : 2025.10.23 ~ 2025.12.01 (약 한달)
 - 개발 인원 : 1인
 - Paragon 에셋을 활용해서 Wukong 영웅으로 몰려오는 적들을 처치하는 액션게임을 만들었습니다.
 
 ## 2. 플레이 동영상
-https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4.mp4
+<img src = "https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/HighLights_1.gif" width = "400" heigh = "150">
 
-## 3. Gameplay Ability
+## 3. Gameplay Ability System
+### - Gameplay Ability
 <details>
 	<summary> 영웅 기능 구현 항목 .gif (Click!)</summary>
   <table>
@@ -42,6 +44,17 @@ https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/%ED%8F%AC%ED%8A%B8%E
 </details>
 
 <details>
+	<summary> GA_Hero_Light_Attack Blueprint (Click!)</summary>
+	<img width="1063" height="415" alt="스크린샷 2025-12-04 154940" src="https://github.com/user-attachments/assets/d7da878b-883a-4c5a-9933-68958bb2e588" />
+	<img width="1088" height="628" alt="스크린샷 2025-12-04 154957" src="https://github.com/user-attachments/assets/b31dc59a-9d63-44aa-aaf8-aad925c09503" />
+	<img width="1095" height="431" alt="스크린샷 2025-12-04 155009" src="https://github.com/user-attachments/assets/ee5f32b7-e0ac-4bbc-83a9-e4bf4397c049" />
+	<img width="1051" height="393" alt="스크린샷 2025-12-04 155017" src="https://github.com/user-attachments/assets/efdec381-dbd2-4e4c-b5c4-3662e0c24f2e" />
+	<img width="1048" height="415" alt="스크린샷 2025-12-04 155030" src="https://github.com/user-attachments/assets/12e581b3-7fc7-4e48-8007-c876e2211aaa" />
+	<img width="1920" height="1040" alt="스크린샷 2025-12-04 154624" src="https://github.com/user-attachments/assets/323b7d0a-8f9a-4ea8-8406-883ecd2156c4" />
+	<img width="1920" height="1040" alt="스크린샷 2025-12-04 154644" src="https://github.com/user-attachments/assets/74bc8725-17e7-495b-b1e5-bcad3622d3cb" />
+
+</details>&nbsp;
+<details>
 	<summary> 적 기능 구현 항목 .gif (Click!)</summary>
   <table>
     <tr>
@@ -71,9 +84,13 @@ https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/%ED%8F%AC%ED%8A%B8%E
     </tr>
   </table>
 </details>
+<details>
+	<summary> Shared_Stun_Base Blueprint (Click!)</summary>
+	<img width="1090" height="354" alt="스크린샷 2025-12-04 160324" src="https://github.com/user-attachments/assets/ad7481d2-52fe-4fe4-ab59-2dc14cdcf148" />
+	<img width="1086" height="579" alt="스크린샷 2025-12-04 160716" src="https://github.com/user-attachments/assets/5684464f-e467-4336-8e1f-f5990f3910fb" />
+</details>&nbsp;
 
-
-## 4. GameplayEffect
+### - GameplayEffect
 <details>
 	<summary>기능 구현 항목 .gif (Click!)</summary>
   <table>
@@ -103,7 +120,38 @@ https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/%ED%8F%AC%ED%8A%B8%E
   </table>
 </details>
 
-## 5. GameplayCue
+<details>
+	<summary> StatOverride 코드 (Click!)</summary>
+	
+```cpp
+DataAsset_StartUpDataBase.h
+	void SetCharacterAttributeByLevel(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel);
+```
+
+```cpp
+DataAsset_StartUpDataBase.cpp
+void UDataAsset_StartUpDataBase::SetCharacterAttributeByLevel(UMWAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
+{
+	if (!StartUpGameplayEffects.IsEmpty())
+	{
+		for (const TSubclassOf<UGameplayEffect>& EffectClass : StartUpGameplayEffects)
+		{
+			if (!EffectClass) continue;
+
+			UGameplayEffect* EffectCDO = EffectClass->GetDefaultObject<UGameplayEffect>();
+			InASCToGive->ApplyGameplayEffectToSelf(
+				EffectCDO,
+				ApplyLevel,
+				InASCToGive->MakeEffectContext()
+			);
+		}
+	}
+}
+```
+<img width="1284" height="452" alt="스크린샷 2025-12-04 154057" src="https://github.com/user-attachments/assets/ff7b29bb-050e-4267-9dda-96fed71a8faf" />
+</details>&nbsp
+
+### - GameplayCue
 <details>
 	<summary>기능 구현 항목 .gif (Click!)</summary>
   <table>
@@ -125,7 +173,7 @@ https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/%ED%8F%AC%ED%8A%B8%E
   </table>
 </details>
 
-## 6. etc
+## 4. etc
 <details>
 	<summary> SaveGame 기능 구현 항목 .gif (Click!)</summary>
   <table>
