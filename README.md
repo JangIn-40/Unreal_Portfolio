@@ -5,8 +5,14 @@
 - 개발 인원 : 1인
 - Paragon 에셋을 활용해서 Wukong 영웅으로 몰려오는 적들을 처치하는 액션게임을 만들었습니다.
 
-## 2. 플레이 동영상
-<img src = "https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/HighLights_1.gif" width = "400" heigh = "150">
+## 2. 플레이 동영상 및 빌드 파일
+> 이미지를 클릭하시면 youtube로 연결됩니다.
+
+[![이미지](https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/HighLights_1.gif)](https://youtu.be/Kq3Ns3fv_qc)
+
+> 플레이 빌드 파일
+
+https://naver.me/xhl6zU7q
 
 ## 3. Gameplay Ability System
 - Gameplay Ability
@@ -220,7 +226,7 @@
 	</details>
 	
 	<details>
-		<summary> MWAttributeSet.cpp 코드 중 일부 + Delegate를 Bind한 Blueprints </summary>
+		<summary> MWAttributeSet.cpp 코드 중 일부 + Delegate를 Bind한 Blueprints (Click!) </summary>
 		
 	```cpp
 	void UMWAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -313,7 +319,7 @@
 	</details>
 
 	<details>
-		<summary> SaveGame 코드 </summary>
+		<summary> SaveGame 코드 (Click!)</summary>
 		
 	```cpp
 			MWSaveGame.h
