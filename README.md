@@ -8,7 +8,7 @@
 ## 2. 플레이 동영상 및 빌드 파일
 > 이미지를 클릭하시면 youtube로 연결됩니다.
 
-[![이미지](https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/HighLights_1.gif)](https://youtu.be/Kq3Ns3fv_qc)
+[![이미지](https://github.com/JangIn-40/Unreal_Portfolio/blob/main/gif/HighLights_1.gif)](https://youtu.be/FZc8cgbTIwk)
 
 > 플레이 빌드 파일
 
